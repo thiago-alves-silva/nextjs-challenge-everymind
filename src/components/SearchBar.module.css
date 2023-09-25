@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  transition: max-width 0.3s;
+  max-width: 20px;
+}
+
+.container.active {
+  max-width: 100%;
+}
+
+.button {
+  all: unset;
+  cursor: pointer;
+}
+
+:is(.active .button, .button:hover) svg {
+  fill: var(--b3);
+}
+
+.input {
+  all: unset;
+  color: var(--c2);
+  font-size: 1rem;
+  border-bottom: 2px solid var(--c4);
+  padding: 0.25rem;
+}
+
+.input::placeholder {
+  color: var(--c4);
+  font-size: 0.875rem;
+  font-style: italic;
+}

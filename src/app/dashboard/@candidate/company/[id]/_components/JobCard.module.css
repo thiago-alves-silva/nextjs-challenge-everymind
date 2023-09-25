@@ -1,0 +1,49 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.5rem;
+}
+
+.title {
+  color: var(--c1);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-list {
+  display: flex;
+  gap: 0.75rem;
+  list-style: none;
+  margin-bottom: 0.75rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.feature-item .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.feature-item span {
+  color: var(--c3);
+  font-size: 0.75rem;
+}
+
+.location {
+  color: var(--c5);
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.elapsed-time {
+  color: var(--c5);
+  font-size: 0.75rem;
+  font-style: italic;
+}

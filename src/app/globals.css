@@ -1,0 +1,40 @@
+:root {
+  --c0: #282c31;
+  --c1: #31313d;
+  --c2: #424252;
+  --c3: #6a6a7e;
+  --c4: #8b8ba9;
+  --c5: #b6b6c4;
+  --c6: #dedee4;
+  --c7: #f4f4f6;
+  --b1: #6ebdf3;
+  --b2: #4946be;
+  --b3: #312e84;
+  --p1: #ff13ac;
+  --p2: #d43fbe;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--c7);
+}
+
+a {
+  text-decoration: none;
+}
+
+svg {
+  transition: fill 0.2s;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  user-select: none;
+}

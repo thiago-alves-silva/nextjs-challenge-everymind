@@ -1,0 +1,78 @@
+.modal {
+  padding: 6rem 4rem !important;
+}
+
+.title {
+  color: var(--c0);
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 1.25rem;
+}
+
+.job-attributes {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.attribute {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.attribute svg {
+  width: 1.5rem;
+}
+
+.attribute .label {
+  color: var(--c4);
+  font-size: 1rem;
+}
+
+.section-title {
+  color: var(--c0);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  color: var(--c3);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dividing-line {
+  background-color: var(--c6);
+  border: none;
+  margin-bottom: 2rem;
+  height: 1px;
+}
+
+.candidature-header {
+  margin-bottom: 1rem;
+}
+
+.candidature-header .count {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--c2);
+}
+
+.candidature-header .count .value {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.candidature-header .count .value svg {
+  fill: var(--c3);
+}
+
+.footer {
+  align-self: flex-end;
+}

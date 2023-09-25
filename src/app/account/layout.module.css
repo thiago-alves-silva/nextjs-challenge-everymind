@@ -1,0 +1,8 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--c1);
+  padding: 6rem 2rem;
+  min-height: 100dvh;
+}

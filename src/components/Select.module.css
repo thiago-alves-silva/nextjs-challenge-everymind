@@ -1,0 +1,74 @@
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.label {
+  display: block;
+  color: var(--c4);
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.dark .label {
+  color: var(--c4);
+}
+
+.light .label {
+  color: var(--c3);
+}
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  fill: var(--c2);
+  border: 2px solid var(--c2);
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+.dark .container {
+  fill: var(--c2);
+  border-color: var(--c2);
+}
+
+.dark .container:hover {
+  fill: var(--c3);
+  border-color: var(--c3);
+}
+
+.light .container {
+  fill: var(--c5);
+  border-color: var(--c5);
+}
+
+.light .container:hover {
+  fill: var(--c4);
+  border-color: var(--c4);
+}
+
+:is(.dark, .light) .container.focused {
+  fill: var(--c3);
+  border-color: var(--b2);
+  box-shadow: 0px 0px 4px 0px var(--b2);
+}
+
+.input {
+  all: unset;
+  appearance: none;
+  flex: 1;
+  align-items: center;
+  color: var(--c4);
+  font-size: 1rem;
+  padding-left: 0.75rem;
+  height: 3rem;
+}
+
+.arrow-icon {
+  position: absolute;
+  fill: inherit;
+  pointer-events: none;
+  right: 0.75rem;
+}

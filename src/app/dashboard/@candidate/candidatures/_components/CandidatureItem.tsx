@@ -1,0 +1,159 @@
+"use client";
+import { CANDIDATURE_PUT } from "@/api";
+import { CandidatureWithJobAndCompany } from "@/types/ICandidature";
+import { Step, FormStep } from "@/types/IJob";
+import { useEffect, useState } from "react";
+import FeedbackModal from "./FeedbackModal";
+import Link from "next/link";
+import StepModal from "./StepModal";
+import styles from "./CandidatureItem.module.css";
+import { useRouter, useSearchParams } from "next/navigation";
+
+interface CandidatureProps {
+  candidature: CandidatureWithJobAndCompany;
+}
+
+const CandidatureItem = ({ candidature }: CandidatureProps) => {
+  const [stepsForm, setStepsForm] = useState<FormStep[] | null>(null);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const { job } = candidature;
+  const location = `${job?.city ?? ""} - ${job?.state ?? ""} ${
+    job?.work_model ? `(${job.work_model})` : ""
+  }`;
+  const currentStep = job?.steps[candidature.current_step];
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const openStep = (step: Step) => () => {
+    if (typeof step.step === "string") {
+      window.open(step.step, "_blank");
+      document.onvisibilitychange = (event) => {
+        if (event.currentTarget instanceof Document) {
+          const visibilityState = event.currentTarget.visibilityState;
+
+          if (visibilityState === "visible") {
+            document.onvisibilitychange = null;
+            setShowFeedbackModal(true);
+          }
+        }
+      };
+    } else {
+      setStepsForm(step.step);
+    }
+  };
+
+  const sendStep = async (
+    formData: { [key: string]: string | string[] } = {}
+  ) => {
+    const candidatureToSend = JSON.parse(
+      JSON.stringify(candidature)
+    ) as CandidatureWithJobAndCompany;
+
+    if (!candidatureToSend.answers) {
+      candidatureToSend.answers = [];
+    }
+
+    if (!currentStep?.online) {
+      candidatureToSend.answers[candidature.current_step] = {
+        step: candidature.current_step,
+        values: Object.values(formData),
+      };
+    }
+    candidatureToSend.current_step++;
+
+    const { url, options } = CANDIDATURE_PUT(
+      candidature._id,
+      candidatureToSend
+    );
+    const response = await fetch(url, options);
+
+    if (response.ok) {
+      console.log(
+        `Resposta da etapa ${candidature.current_step} registrada com sucesso!`
+      );
+      router.refresh();
+    }
+  };
+
+  useEffect(() => {
+    const returnFromFeedback = searchParams.has("feedback");
+
+    if (returnFromFeedback) {
+      console.log("Veio do feedback");
+      router.refresh();
+    }
+  }, [router, searchParams]);
+
+  return (
+    <div className={styles.item}>
+      <span className={styles.image}></span>
+      <span className={styles.title}>{job?.title ?? "[Sem título]"}</span>
+      <span className={styles.company}>
+        {candidature.company?.name ?? "[Empresa não identificada]"}
+      </span>
+      <span className={styles.location}>{location}</span>
+      {!!job?.steps.length && (
+        <details className={styles.steps}>
+          <summary>{currentStep?.label}</summary>
+          <ul className={styles["step-list"]}>
+            {job?.steps.map((step, index) => {
+              const availableStep = candidature.current_step === index;
+              const disabledClassName =
+                candidature.current_step < index ? styles.disabled : "";
+              const completedClassName =
+                candidature.current_step > index ? styles.completed : "";
+
+              return (
+                <li
+                  key={index}
+                  className={`${styles["step-item"]} ${disabledClassName} ${completedClassName}`}
+                  onClick={availableStep ? openStep(step) : undefined}
+                >
+                  {step.label}
+                </li>
+              );
+            })}
+            {candidature.current_step === job?.steps.length && (
+              <li
+                className={`${styles["step-item"]} ${
+                  candidature.feedback ? styles.completed : ""
+                }`}
+              >
+                <Link
+                  href={`/dashboard/candidatures/${candidature._id}/feedback`}
+                  className={styles.feedback}
+                >
+                  Feedback
+                </Link>
+              </li>
+            )}
+            <div
+              className={styles["completed-bar"]}
+              style={{
+                height: `${
+                  (candidature.current_step - (candidature.feedback ? 0 : 1)) *
+                  2
+                }rem`,
+              }}
+            ></div>
+          </ul>
+        </details>
+      )}
+      {stepsForm && (
+        <StepModal
+          steps={stepsForm}
+          onClose={() => setStepsForm(null)}
+          onSubmit={sendStep}
+        />
+      )}
+      {showFeedbackModal && (
+        <FeedbackModal
+          onAnswer={sendStep}
+          onClose={() => setShowFeedbackModal(false)}
+        />
+      )}
+    </div>
+  );
+};
+
+export default CandidatureItem;

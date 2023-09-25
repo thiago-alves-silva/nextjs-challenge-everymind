@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  min-height: 450px;
+}
+
+.stepper-container {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background-color: var(--c2);
+  border-radius: 4px 0 0 4px;
+  padding: 1rem 2rem;
+  width: 300px;
+}
+
+.container .form-container {
+  border-radius: 0 4px 4px 0;
+  width: 450px;
+}

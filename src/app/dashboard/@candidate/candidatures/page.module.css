@@ -1,0 +1,18 @@
+.title {
+  color: var(--c1);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.not-found {
+  color: var(--c3);
+  text-align: center;
+  padding: 4rem 0 2rem;
+}
+
+.candidature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

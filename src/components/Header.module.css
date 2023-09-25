@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+  background-color: var(--b3);
+  padding: 1.25rem 4rem;
+  height: 80px;
+}
+
+.links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.link {
+  color: var(--c7);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.header .profile-button {
+  background-color: var(--b1) !important;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.header .profile-button:hover {
+  background-color: var(--b2) !important;
+}

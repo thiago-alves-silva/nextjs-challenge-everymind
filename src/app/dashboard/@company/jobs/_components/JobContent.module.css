@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.create-button {
+  font-size: 0.875rem;
+}
+
+.job-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  list-style: none;
+}
+
+.not-found {
+  color: var(--c3);
+  text-align: center;
+  padding: 4rem 0 2rem;
+}

@@ -1,0 +1,9 @@
+.textarea {
+  margin-bottom: 2rem;
+  height: 250px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+}

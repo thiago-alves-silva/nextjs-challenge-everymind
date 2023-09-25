@@ -1,0 +1,9 @@
+.not-answer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.not-answer span {
+  color: var(--c5);
+  font-size: 0.875rem;
+}

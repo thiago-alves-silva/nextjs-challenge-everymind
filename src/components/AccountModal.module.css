@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--c0);
+  border-radius: 4px;
+  padding: 6rem 4rem;
+  width: min(450px, 100%);
+}

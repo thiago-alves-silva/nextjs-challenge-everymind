@@ -1,0 +1,11 @@
+.title {
+  color: var(--c2);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.feedback {
+  color: var(--c3);
+  font-size: 1rem;
+}

@@ -1,0 +1,13 @@
+.requirements p {
+  color: var(--c3);
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.requirements p.valid {
+  color: var(--c5);
+}
+
+.requirements p:not(:last-of-type) {
+  margin-bottom: 0.5rem;
+}

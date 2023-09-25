@@ -1,0 +1,44 @@
+.image {
+  background-color: var(--c7);
+  border: 3px solid var(--c5);
+  border-radius: 50%;
+  margin: 0 auto 0.5rem;
+  width: 6rem;
+  height: 6rem;
+}
+
+.name {
+  color: var(--c3);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.attribute-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 1rem 2rem;
+  margin: 0 auto 5rem;
+  max-width: 600px;
+}
+
+.attribute-list .title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.attribute-list .title svg {
+  fill: var(--c3);
+  width: 1.25rem;
+}
+
+.attribute-list .value {
+  display: block;
+  color: var(--c2);
+  margin-left: 1.75rem;
+}

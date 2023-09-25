@@ -1,0 +1,9 @@
+.description-container {
+  display: flex;
+  align-items: center;
+}
+
+.description {
+  color: var(--c5);
+  text-align: center;
+}

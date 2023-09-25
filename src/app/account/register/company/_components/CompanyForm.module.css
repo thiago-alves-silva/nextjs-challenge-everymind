@@ -1,0 +1,47 @@
+.label {
+  color: var(--c6);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.company-data-section,
+.password-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.double-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.double-inputs > * {
+  flex: 1;
+}
+
+.address-input {
+  flex: 2;
+}
+
+.requirements p {
+  color: var(--c3);
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.requirements p.valid {
+  color: var(--c5);
+}
+
+.requirements p:not(:last-of-type) {
+  margin-bottom: 0.5rem;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

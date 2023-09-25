@@ -1,0 +1,29 @@
+import { CandidateApi } from "@/types/ICandidate";
+import getUserFromTokenOnServerSide from "@/utils/getUserFromTokenOnServerSide";
+import { NextRequest } from "next/server";
+
+export const POST = async (req: NextRequest) => {
+  const body = (await req.json()) as CandidateApi;
+  const response = await fetch(new URL("/useraccount", process.env.API_HOST), {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  return response;
+};
+
+export const PUT = async (req: NextRequest) => {
+  const user = getUserFromTokenOnServerSide();
+  const body = (await req.json()) as CandidateApi;
+  const response = await fetch(
+    new URL(`/useraccount/${user?.id}`, process.env.API_HOST),
+    {
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    }
+  );
+
+  return response;
+};

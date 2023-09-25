@@ -1,0 +1,32 @@
+.double-inputs {
+  display: flex;
+  gap: 1rem;
+}
+
+.double-inputs > * {
+  flex: 1;
+}
+
+.salary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.salary-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-end;
+  color: var(--c3);
+}
+
+.salary-checkbox input {
+  width: 1rem;
+  height: 1rem;
+}
+
+.textarea {
+  margin-bottom: 2rem;
+  height: 10rem;
+}

@@ -1,0 +1,10 @@
+.main {
+  background: linear-gradient(var(--b3) 50%, transparent 50%);
+  padding: 6rem 2rem;
+  min-height: calc(100dvh - 80px);
+}
+
+.wrapper {
+  margin: auto;
+  max-width: 900px;
+}

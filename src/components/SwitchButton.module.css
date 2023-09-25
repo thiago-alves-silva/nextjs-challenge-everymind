@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  background-color: var(--c2);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: filter 0.2s;
+  padding: 0.25rem;
+  width: 2.5rem;
+  height: 1.25rem;
+}
+
+.container:hover {
+  filter: brightness(0.9);
+}
+
+.container.on {
+  justify-content: flex-end;
+}
+
+.container input {
+  display: none;
+}
+
+.inner-circle {
+  background-color: var(--c4);
+  border-radius: 50%;
+  pointer-events: none;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.on .inner-circle {
+  background-color: var(--b1);
+}

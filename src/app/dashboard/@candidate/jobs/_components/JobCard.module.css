@@ -1,0 +1,42 @@
+.card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: repeat(4, auto);
+  gap: 0 0.75rem;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.image {
+  grid-row: 1 / -1;
+  background-color: var(--c5);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.title {
+  color: var(--c1);
+  font-size: 1rem;
+}
+
+.company {
+  color: var(--c3);
+  font-size: 0.875rem;
+  font-style: italic;
+  margin-bottom: 0.25rem;
+}
+
+.location {
+  color: var(--c5);
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.elapsed-time {
+  color: var(--c5);
+  font-size: 0.75rem;
+  font-style: italic;
+}

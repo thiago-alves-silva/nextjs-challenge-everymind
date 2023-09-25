@@ -1,0 +1,72 @@
+.modal {
+  padding: 6rem 4rem !important;
+}
+
+.title {
+  color: var(--c0);
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.company {
+  color: var(--c3);
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+  width: max-content;
+}
+
+.company:hover {
+  text-decoration: underline;
+}
+
+.job-attributes {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.attribute {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.attribute svg {
+  width: 1.5rem;
+}
+
+.attribute .label {
+  color: var(--c4);
+  font-size: 1rem;
+}
+
+.about-job-title {
+  color: var(--c0);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  color: var(--c3);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.apply-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.deadline-date {
+  color: var(--c4);
+  font-size: 0.875rem;
+}
+
+.already-applied {
+  color: #ff132b;
+}

@@ -1,0 +1,12 @@
+.title {
+  color: var(--c2);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.description {
+  color: var(--c4);
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}

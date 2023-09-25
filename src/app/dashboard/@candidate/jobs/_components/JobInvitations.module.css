@@ -1,0 +1,38 @@
+.title {
+  color: var(--c2);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.job-list {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  overflow: auto;
+  padding-bottom: 0.5rem;
+}
+
+/* width */
+.job-list::-webkit-scrollbar {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+
+/* Track */
+.job-list::-webkit-scrollbar-track {
+  background: var(--c7);
+}
+
+/* Handle */
+.job-list::-webkit-scrollbar-thumb {
+  background: var(--c6);
+}
+
+/* Handle on hover */
+.job-list::-webkit-scrollbar-thumb:hover {
+  background: var(--c5);
+}
+
+.job-item {
+  flex: 1 0 300px;
+}

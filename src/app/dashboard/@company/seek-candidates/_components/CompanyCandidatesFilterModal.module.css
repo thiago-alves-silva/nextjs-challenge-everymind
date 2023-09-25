@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.label {
+  display: block;
+  color: var(--c2);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.options {
+  display: flex;
+  gap: 1rem;
+}
+
+.apply-button {
+  align-self: flex-end;
+}

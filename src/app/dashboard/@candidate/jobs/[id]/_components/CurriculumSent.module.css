@@ -1,0 +1,14 @@
+.title {
+  color: var(--c2);
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.apply-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+}

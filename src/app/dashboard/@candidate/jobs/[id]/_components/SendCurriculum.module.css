@@ -1,0 +1,51 @@
+.title {
+  color: var(--c0);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  color: var(--c3);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filename {
+  color: var(--c3);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-button {
+  display: inline-block;
+  background-color: var(--c6);
+  color: var(--c4);
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.05rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  padding: 0.5rem 1rem;
+  height: 40px;
+}
+
+.upload-button:hover {
+  background-color: var(--c5);
+  color: var(--c3);
+}
