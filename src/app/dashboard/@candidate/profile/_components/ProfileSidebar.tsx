@@ -1,14 +1,19 @@
 import ActiveLink from "@/components/ActiveLink";
+import ProfileImage from "@/app/dashboard/_components/ProfileImage";
+import getUserFromTokenOnServerSide from "@/utils/getUserFromTokenOnServerSide";
+import getCandidate from "@/utils/getCandidate";
 import logout from "@/utils/logout";
 import styles from "./ProfileSidebar.module.css";
-import getUserFromTokenOnServerSide from "@/utils/getUserFromTokenOnServerSide";
 
-const ProfileSidebar = () => {
+const ProfileSidebar = async () => {
   const user = getUserFromTokenOnServerSide();
+  const candidate = user ? await getCandidate(user.id) : null;
 
   return (
     <div className={styles.container}>
-      <div className={styles["profile-image"]}></div>
+      <ProfileImage
+        src={`/api/candidate/${user?.id}/image/${candidate?.profile_image}`}
+      />
       <span className={styles["profile-name"]}>{user?.name}</span>
       <nav className={styles.nav}>
         <ul className={styles["link-list"]}>

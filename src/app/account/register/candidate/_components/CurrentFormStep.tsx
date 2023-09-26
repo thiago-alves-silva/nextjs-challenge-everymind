@@ -2,7 +2,6 @@
 import StepOne from "./StepOne/StepOne";
 import StepTwo from "./StepTwo/StepTwo";
 import StepThree from "./StepThree/StepThree";
-import StepFour from "./StepFour/StepFour";
 import { useCandidateForm } from "@/context/CandidateFormContext";
 import { CandidateApi } from "@/types/ICandidate";
 
@@ -30,8 +29,6 @@ const CurrentFormStep = () => {
       return <StepTwo handleOnChange={handleOnChange} />;
     case 2:
       return <StepThree handleOnChange={handleOnChange} />;
-    case 3:
-      return <StepFour handleOnChange={handleOnChange} />;
     default:
       return null;
   }

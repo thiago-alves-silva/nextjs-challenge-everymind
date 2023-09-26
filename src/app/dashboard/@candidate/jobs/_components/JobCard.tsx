@@ -1,6 +1,8 @@
 import elapsedTime from "@/utils/elapsedTime";
 import styles from "./JobCard.module.css";
 import { Job } from "@/types/IJob";
+import normalizeWorkModel from "@/utils/normalizeWorkModel";
+import { WorkModel } from "@/types/WorkModel";
 
 interface JobCardProps {
   job: Job;
@@ -8,7 +10,9 @@ interface JobCardProps {
 }
 
 const JobCard = ({ job, ...props }: JobCardProps) => {
-  const location = `${job.city}, ${job.state} (${job.work_model})`;
+  const location = `${job.city}, ${job.state} (${normalizeWorkModel(
+    job.work_model as WorkModel
+  )})`;
 
   return (
     <div className={styles.card}>

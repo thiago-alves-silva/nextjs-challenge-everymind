@@ -1,0 +1,106 @@
+#notification-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem;
+  pointer-events: none;
+  z-index: 10;
+  padding: 1rem;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+}
+
+.notification {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--c7);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: display-notification 0.5s forwards;
+  pointer-events: all;
+  padding: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.notification.hide {
+  animation: hide-notification 0.5s forwards;
+}
+
+.notification .loading {
+  position: absolute;
+  background-color: var(--c6);
+  transform: translateY(-100%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.25rem;
+}
+
+.notification .loading .bar {
+  background-color: var(--c4);
+  animation: loading-bar-progress 5s forwards linear;
+  width: 100%;
+  height: 100%;
+}
+
+.notification.success .loading .bar {
+  background-color: var(--success);
+}
+.notification.error .loading .bar {
+  background-color: var(--error);
+}
+
+.notification .icon {
+  background: url("/info.svg") no-repeat center/contain;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.notification.success .icon {
+  background-image: url("/success.svg");
+}
+
+.notification.error .icon {
+  background-image: url("/error.svg");
+}
+
+.notification .text {
+  color: var(--c2);
+  font-size: 0.875rem;
+}
+
+@keyframes display-notification {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hide-notification {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes loading-bar-progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}

@@ -3,7 +3,8 @@ const getBase64FromFile = (file: File) =>
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result?.toString() ?? null);
+    reader.onload = () =>
+      resolve(reader.result?.toString().replace(/^.+?,/, "") ?? null);
     reader.onerror = reject;
   });
 

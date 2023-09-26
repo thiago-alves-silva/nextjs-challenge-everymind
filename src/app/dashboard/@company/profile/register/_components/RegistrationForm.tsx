@@ -1,6 +1,6 @@
 "use client";
 import { Company } from "@/types/ICompany";
-import { UPDATE_COMPANY_PUT } from "@/api";
+import { COMPANY_PUT } from "@/api";
 import { useCallback, useEffect, useState } from "react";
 import BrazilianStatesOptions from "@/components/BrazilianStatesOptions";
 import Button from "@/components/Button";
@@ -82,7 +82,7 @@ const RegistrationForm = (props: RegistrationFormProps) => {
     const payload = { ...company };
     delete payload._id;
 
-    const { url, options } = UPDATE_COMPANY_PUT(payload);
+    const { url, options } = COMPANY_PUT(payload);
     const response = await fetch(url, options);
 
     if (response.ok) {

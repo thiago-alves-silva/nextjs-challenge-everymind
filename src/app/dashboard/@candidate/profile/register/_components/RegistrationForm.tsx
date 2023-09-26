@@ -2,26 +2,31 @@
 import { dateRegex } from "@/regex";
 import { CandidateApi } from "@/types/ICandidate";
 import { useCallback, useEffect, useState } from "react";
-import { UPDATE_CANDIDATE_PUT } from "@/api";
+import { CANDIDATE_PUT } from "@/api";
+import { useRouter } from "next/navigation";
 import BrazilianStatesOptions from "@/components/BrazilianStatesOptions";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
+import Loading from "@/components/Loading";
 import Select from "@/components/Select";
 import maskPhone from "@/utils/maskPhone";
 import maskDate from "@/utils/maskDate";
 import validatePhone from "@/utils/validatePhone";
 import styles from "./RegistrationForm.module.css";
+import displayNotification from "@/utils/displayNotification";
 
 interface RegistrationFormProps {
   candidate: CandidateApi | null;
 }
 
 const RegistrationForm = (props: RegistrationFormProps) => {
+  const [loading, setLoading] = useState(false);
   const [candidate, setCandidate] = useState<CandidateApi | null>(
     props.candidate
   );
   const [validFields, setValidFields] = useState(false);
   const [hasChange, setHasChange] = useState(false);
+  const router = useRouter();
 
   const handleOnChange: React.ChangeEventHandler<
     HTMLSelectElement | HTMLInputElement
@@ -59,14 +64,26 @@ const RegistrationForm = (props: RegistrationFormProps) => {
 
   const sendRegistrationData: React.FormEventHandler = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
-    const { url, options } = UPDATE_CANDIDATE_PUT(candidate);
+    const { url, options } = CANDIDATE_PUT(candidate);
     const response = await fetch(url, options);
 
     if (response.ok) {
-      console.log("Dados cadastrais do candidato atualizados com sucesso!");
+      displayNotification({
+        text: "Dados alterados com sucesso",
+        type: "success",
+      });
       setHasChange(false);
+      router.refresh();
+    } else {
+      displayNotification({
+        text: "Erro na alteração dos dados",
+        type: "error",
+      });
     }
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -84,6 +101,10 @@ const RegistrationForm = (props: RegistrationFormProps) => {
       return false;
     });
   }, [candidate, props.candidate, validate]);
+
+  useEffect(() => {
+    setCandidate(props.candidate);
+  }, [props.candidate]);
 
   return (
     <form className={styles.form} onSubmit={sendRegistrationData}>
@@ -157,9 +178,9 @@ const RegistrationForm = (props: RegistrationFormProps) => {
       </div>
       <Button
         className={styles["submit-button"]}
-        disabled={!validFields || !hasChange}
+        disabled={!validFields || !hasChange || loading}
       >
-        Salvar alterações
+        {loading ? <Loading /> : "Salvar alterações"}
       </Button>
     </form>
   );

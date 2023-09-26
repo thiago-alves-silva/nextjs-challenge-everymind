@@ -68,5 +68,5 @@
 }
 
 .already-applied {
-  color: #ff132b;
+  color: var(--error);
 }

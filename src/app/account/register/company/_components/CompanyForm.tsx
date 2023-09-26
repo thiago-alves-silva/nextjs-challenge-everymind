@@ -1,7 +1,7 @@
 "use client";
 import { cnpjRegex } from "@/regex";
 import { Company } from "@/types/ICompany";
-import { REGISTER_COMPANY_POST } from "@/api";
+import { COMPANY_POST } from "@/api";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import BackButton from "@/components/BackButton";
@@ -49,7 +49,7 @@ const CompanyForm = () => {
   const handleSubmit: React.FormEventHandler = async (event) => {
     event.preventDefault();
 
-    const { url, options } = REGISTER_COMPANY_POST(formData);
+    const { url, options } = COMPANY_POST(formData);
     const response = await fetch(url, options);
 
     if (response.ok) {

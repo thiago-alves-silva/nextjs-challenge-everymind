@@ -1,9 +1,9 @@
-import { User } from "./User";
+import { UserType } from "./UserType";
 
 export interface UserLogin {
   email: string;
   password: string;
-  user: User;
+  user: UserType;
 }
 
 export const isUserLogin = (object: unknown): object is UserLogin => {

@@ -12,6 +12,8 @@
   --b3: #312e84;
   --p1: #ff13ac;
   --p2: #d43fbe;
+  --success: #42ff13;
+  --error: #ff132b;
 }
 
 * {

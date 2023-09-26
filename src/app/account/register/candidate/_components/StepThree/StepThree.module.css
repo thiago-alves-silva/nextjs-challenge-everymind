@@ -1,13 +1,9 @@
-.requirements p {
-  color: var(--c3);
-  font-size: 0.875rem;
-  transition: color 0.2s;
+.not-answer {
+  display: flex;
+  justify-content: space-between;
 }
 
-.requirements p.valid {
+.not-answer span {
   color: var(--c5);
-}
-
-.requirements p:not(:last-of-type) {
-  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
 }

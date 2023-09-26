@@ -9,6 +9,7 @@ interface ForwardButton {
 const ForwardButton = (props: ForwardButton) => {
   return (
     <button
+      type="button"
       className={styles["button"]}
       onClick={props.onClick}
       disabled={props.disabled}

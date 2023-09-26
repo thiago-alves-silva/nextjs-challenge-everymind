@@ -19,7 +19,7 @@ export const LOGIN_USER_POST = (payload: any): RequestConfig => {
   };
 };
 
-export const REGISTER_CANDIDATE_POST = (payload: any): RequestConfig => {
+export const CANDIDATE_POST = (payload: any): RequestConfig => {
   return {
     url: new URL("/api/account/register/candidate", BASE_URL),
     options: {
@@ -30,7 +30,7 @@ export const REGISTER_CANDIDATE_POST = (payload: any): RequestConfig => {
   };
 };
 
-export const UPDATE_CANDIDATE_PUT = (payload: any): RequestConfig => {
+export const CANDIDATE_PUT = (payload: any): RequestConfig => {
   return {
     url: new URL("/api/account/register/candidate", BASE_URL),
     options: {
@@ -41,7 +41,7 @@ export const UPDATE_CANDIDATE_PUT = (payload: any): RequestConfig => {
   };
 };
 
-export const REGISTER_COMPANY_POST = (payload: any): RequestConfig => {
+export const COMPANY_POST = (payload: any): RequestConfig => {
   return {
     url: new URL("/api/account/register/company", BASE_URL),
     options: {
@@ -52,7 +52,7 @@ export const REGISTER_COMPANY_POST = (payload: any): RequestConfig => {
   };
 };
 
-export const UPDATE_COMPANY_PUT = (payload: any): RequestConfig => {
+export const COMPANY_PUT = (payload: any): RequestConfig => {
   return {
     url: new URL("/api/account/register/company", BASE_URL),
     options: {
@@ -162,6 +162,34 @@ export const CANDIDATE_GET = (candidateId: string): RequestConfig => {
     url: new URL(`/api/candidate/${candidateId}`, BASE_URL),
     options: {
       method: "get",
+    },
+  };
+};
+
+export const CANDIDATE_PROFILE_IMAGE_POST = (
+  candidateId: string,
+  payload: any
+): RequestConfig => {
+  return {
+    url: new URL(`/api/candidate/${candidateId}/image`, BASE_URL),
+    options: {
+      method: "post",
+      body: JSON.stringify(payload),
+      headers: { "Content-Type": "application/json" },
+    },
+  };
+};
+
+export const COMPANY_PROFILE_IMAGE_POST = (
+  companyId: string,
+  payload: any
+): RequestConfig => {
+  return {
+    url: new URL(`/api/company/${companyId}/image`, BASE_URL),
+    options: {
+      method: "post",
+      body: JSON.stringify(payload),
+      headers: { "Content-Type": "application/json" },
     },
   };
 };

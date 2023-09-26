@@ -1,87 +1,125 @@
-import Input from "@/components/Input";
-import UserIcon from "../../../../../../../public/user.svg";
-import NumberIcon from "../../../../../../../public/number.svg";
-import PhoneIcon from "../../../../../../../public/phone.svg";
-import CalendarIcon from "../../../../../../../public/calendar.svg";
-import FormControls from "../FormControls";
-import maskCpf from "@/utils/maskCpf";
-import maskPhone from "@/utils/maskPhone";
-import maskDate from "@/utils/maskDate";
-import validateCpf from "@/utils/validateCpf";
-import validatePhone from "@/utils/validatePhone";
+"use client";
 import { StepFormProps } from "@/types/IStepFormProps";
 import { useCandidateForm } from "@/context/CandidateFormContext";
-import { cpfRegex, dateRegex } from "@/regex";
+import { useEffect, useState } from "react";
+import Input from "@/components/Input";
+import PasswordIcon from "../../../../../../../public/password.svg";
+import FormControls from "../FormControls";
+import styles from "./StepTwo.module.css";
+import displayNotification from "@/utils/displayNotification";
 
 const StepTwo = (props: StepFormProps) => {
+  const minLength = 8;
   const { formData } = useCandidateForm();
+  const [hasMinChars, setHasMinChars] = useState(false);
+  const [hasUppercase, setHasUppercase] = useState(false);
+  const [hasLowercase, setHasLowercase] = useState(false);
+  const [hasNumeric, setHasNumeric] = useState(false);
+  const [hasSpecialChars, setHasSpecialChars] = useState(false);
 
   const validate = (): boolean => {
-    if (!formData.name.trim()) {
+    if (!formData.confirm_password.trim() || !formData.password.trim()) {
+      displayNotification({
+        text: "Preencha todos os campos",
+        type: "error",
+      });
+    }
+
+    if (formData.confirm_password !== formData.password) {
+      displayNotification({
+        text: "As senhas não possuem o mesmo valor",
+        type: "error",
+      });
       return false;
     }
 
-    if (!cpfRegex.test(formData.cpf) || !validateCpf(formData.cpf)) {
+    if (!hasMinChars) {
+      displayNotification({
+        text: `A senhas deve conter no mínimo ${minLength} caracteres`,
+        type: "error",
+      });
       return false;
     }
 
-    if (!validatePhone(formData.phone)) {
+    if (!hasUppercase) {
+      displayNotification({
+        text: `A senhas deve conter letras maiúsculas`,
+        type: "error",
+      });
       return false;
     }
 
-    if (!dateRegex.test(formData.birthdate)) {
+    if (!hasLowercase) {
+      displayNotification({
+        text: `A senhas deve conter letras minúsculas`,
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!hasNumeric) {
+      displayNotification({
+        text: `A senhas deve conter números`,
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!hasSpecialChars) {
+      displayNotification({
+        text: `A senhas deve conter caracteres especiais`,
+        type: "error",
+      });
       return false;
     }
 
     return true;
   };
 
+  useEffect(() => {
+    setHasMinChars(formData.password.length >= minLength);
+    setHasUppercase(/[A-Z]/.test(formData.password));
+    setHasLowercase(/[a-z]/.test(formData.password));
+    setHasNumeric(/\d/.test(formData.password));
+    setHasSpecialChars(
+      /[!@#$%^&*()\-=_+[\]{}|;:'",.<>/?\\]/.test(formData.password)
+    );
+  }, [formData.password]);
+
   return (
     <>
       <Input
-        name="name"
-        placeholder="Nome completo"
-        value={formData.name}
+        type="password"
+        name="password"
+        placeholder="Senha"
+        value={formData.password}
         onChange={props.handleOnChange}
       >
-        <UserIcon />
+        <PasswordIcon />
       </Input>
       <Input
-        name="cpf"
-        placeholder="CPF"
-        value={formData.cpf}
-        onChange={(event) => {
-          const value = maskCpf(event.target.value);
-          event.target.value = value;
-          props.handleOnChange(event);
-        }}
+        type="password"
+        name="confirm_password"
+        placeholder="Confirme sua senha"
+        value={formData.confirm_password}
+        onChange={props.handleOnChange}
       >
-        <NumberIcon />
+        <PasswordIcon />
       </Input>
-      <Input
-        name="phone"
-        placeholder="Telefone"
-        value={formData.phone}
-        onChange={(event) => {
-          const value = maskPhone(event.target.value);
-          event.target.value = value;
-          props.handleOnChange(event);
-        }}
-      >
-        <PhoneIcon />
-      </Input>
-      <Input
-        name="birthDate"
-        placeholder="Data de nascimento"
-        value={formData.birthdate}
-        onChange={(event) => {
-          const value = maskDate(event.target.value);
-          event.target.value = value;
-          props.handleOnChange(event);
-        }}
-      >
-        <CalendarIcon />
-      </Input>
+      <div className={styles.requirements}>
+        <p className={hasMinChars ? styles.valid : ""}>
+          A senha deve conter pelo menos 8 caracteres
+        </p>
+        <p className={hasUppercase && hasLowercase ? styles.valid : ""}>
+          A senha deve conter letras maiúsculas e minúsculas
+        </p>
+        <p className={hasNumeric ? styles.valid : ""}>
+          A senha deve caracteres numéricos
+        </p>
+        <p className={hasSpecialChars ? styles.valid : ""}>
+          A senha deve caracteres especiais
+        </p>
+      </div>
       <FormControls validate={validate} />
     </>
   );

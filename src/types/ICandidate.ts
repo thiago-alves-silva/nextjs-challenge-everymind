@@ -6,7 +6,7 @@ export interface Candidate {
   name: string;
   cpf: string;
   phone: string;
-  birthDate: Date;
+  birthdate: Date;
   password: string;
   racial_identity: RacialIdentity | null;
   family_income: string | null;
@@ -15,6 +15,7 @@ export interface Candidate {
   is_lgbtqia: boolean | null;
   state: string | null;
   city: string | null;
+  profile_image: string | null;
 }
 
 export interface CandidateApi {
@@ -33,6 +34,7 @@ export interface CandidateApi {
   is_lgbtqia: boolean | null;
   state: string | null;
   city: string | null;
+  profile_image: string | null;
 }
 
 export const isRacialIdentity = (value: string): value is RacialIdentity => {

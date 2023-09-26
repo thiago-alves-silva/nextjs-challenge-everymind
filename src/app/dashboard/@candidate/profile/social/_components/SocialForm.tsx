@@ -1,23 +1,28 @@
 "use client";
+import { CandidateApi } from "@/types/ICandidate";
+import { useEffect, useState } from "react";
+import { CANDIDATE_PUT } from "@/api";
+import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import Select from "@/components/Select";
 import Checkbox from "@/components/Checkbox";
 import RacialIdentityOptions from "@/components/RacialIdentityOptions";
 import FamilyIncomeOptions from "@/components/FamilyIncomeOptions";
+import Loading from "@/components/Loading";
+import displayNotification from "@/utils/displayNotification";
 import styles from "./SocialForm.module.css";
-import { CandidateApi } from "@/types/ICandidate";
-import { useEffect, useState } from "react";
-import { UPDATE_CANDIDATE_PUT } from "@/api";
 
 interface SocialFormProps {
   candidate: CandidateApi | null;
 }
 
 const SocialForm = (props: SocialFormProps) => {
+  const [loading, setLoading] = useState(false);
   const [candidate, setCandidate] = useState<CandidateApi | null>(
     props.candidate
   );
   const [hasChange, setHasChange] = useState(false);
+  const router = useRouter();
 
   const handleOnChange: React.ChangeEventHandler<
     HTMLSelectElement | HTMLInputElement
@@ -54,14 +59,26 @@ const SocialForm = (props: SocialFormProps) => {
 
   const sendSocialData: React.FormEventHandler = async (event) => {
     event.preventDefault();
-    console.log(candidate);
+    setLoading(true);
 
-    const { url, options } = UPDATE_CANDIDATE_PUT(candidate);
+    const { url, options } = CANDIDATE_PUT(candidate);
     const response = await fetch(url, options);
 
     if (response.ok) {
-      console.log("Dados sociais do candidato atualizados com sucesso!");
+      displayNotification({
+        text: "Dados alterados com sucesso",
+        type: "success",
+      });
+      setHasChange(false);
+      router.refresh();
+    } else {
+      displayNotification({
+        text: "Erro na alteração dos dados",
+        type: "error",
+      });
     }
+
+    setLoading(false);
   };
 
   return (
@@ -108,7 +125,7 @@ const SocialForm = (props: SocialFormProps) => {
         theme="light"
       />
       <Button className={styles["submit-button"]} disabled={!hasChange}>
-        Salvar alterações
+        {loading ? <Loading /> : "Salvar alterações"}
       </Button>
     </form>
   );

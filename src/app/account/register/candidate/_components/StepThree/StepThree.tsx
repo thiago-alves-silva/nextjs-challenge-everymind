@@ -1,79 +1,106 @@
 "use client";
-import Input from "@/components/Input";
-import PasswordIcon from "../../../../../../../public/password.svg";
-import FormControls from "../FormControls";
-import styles from "./StepThree.module.css";
 import { StepFormProps } from "@/types/IStepFormProps";
 import { useCandidateForm } from "@/context/CandidateFormContext";
 import { useEffect, useState } from "react";
+import SwitchButton from "@/components/SwitchButton";
+import Select from "@/components/Select";
+import Checkbox from "@/components/Checkbox";
+import FormControls from "../FormControls";
+import RacialIdentityOptions from "@/components/RacialIdentityOptions";
+import FamilyIncomeOptions from "@/components/FamilyIncomeOptions";
+import styles from "./StepThree.module.css";
+import displayNotification from "@/utils/displayNotification";
 
 const StepThree = (props: StepFormProps) => {
-  const minLength = 8;
-  const { formData } = useCandidateForm();
-  const [hasMinChars, setHasMinChars] = useState(false);
-  const [hasUppercase, setHasUppercase] = useState(false);
-  const [hasLowercase, setHasLowercase] = useState(false);
-  const [hasNumeric, setHasNumeric] = useState(false);
-  const [hasSpecialChars, setHasSpecialChars] = useState(false);
+  const { formData, setFormData } = useCandidateForm();
+  const [notAnswer, setNotAnswer] = useState(false);
 
   const validate = (): boolean => {
-    if (formData.confirm_password !== formData.password) {
+    if (notAnswer) {
+      return true;
+    }
+
+    if (!formData.racial_identity) {
+      displayNotification({
+        text: "Selecione uma identidade racial",
+        type: "error",
+      });
       return false;
     }
 
-    return (
-      hasMinChars &&
-      hasUppercase &&
-      hasLowercase &&
-      hasNumeric &&
-      hasSpecialChars
-    );
+    if (!formData.family_income) {
+      displayNotification({
+        text: "Selecione uma renda familiar",
+        type: "error",
+      });
+      return false;
+    }
+
+    return true;
   };
 
   useEffect(() => {
-    setHasMinChars(formData.password.length >= minLength);
-    setHasUppercase(/[A-Z]/.test(formData.password));
-    setHasLowercase(/[a-z]/.test(formData.password));
-    setHasNumeric(/\d/.test(formData.password));
-    setHasSpecialChars(
-      /[!@#$%^&*()\-=_+[\]{}|;:'",.<>/?\\]/.test(formData.password)
-    );
-  }, [formData.password]);
+    if (notAnswer) {
+      setFormData((formData) => {
+        return {
+          ...formData,
+          racial_identity: null,
+          family_income: null,
+          indigenous_descendancy: null,
+          has_disability: null,
+          is_lgbtqia: null,
+        };
+      });
+    }
+  }, [notAnswer, setFormData]);
 
   return (
     <>
-      <Input
-        type="password"
-        name="password"
-        placeholder="Senha"
-        value={formData.password}
-        onChange={props.handleOnChange}
-      >
-        <PasswordIcon />
-      </Input>
-      <Input
-        type="password"
-        name="confirm_password"
-        placeholder="Confirme sua senha"
-        value={formData.confirm_password}
-        onChange={props.handleOnChange}
-      >
-        <PasswordIcon />
-      </Input>
-      <div className={styles.requirements}>
-        <p className={hasMinChars ? styles.valid : ""}>
-          A senha deve conter pelo menos 8 caracteres
-        </p>
-        <p className={hasUppercase && hasLowercase ? styles.valid : ""}>
-          A senha deve conter letras maiúsculas e minúsculas
-        </p>
-        <p className={hasNumeric ? styles.valid : ""}>
-          A senha deve caracteres numéricos
-        </p>
-        <p className={hasSpecialChars ? styles.valid : ""}>
-          A senha deve caracteres especiais
-        </p>
+      <div className={styles["not-answer"]}>
+        <span>Prefiro não responder</span>
+        <SwitchButton onChange={setNotAnswer} />
       </div>
+      <Select
+        name="racial_identity"
+        label="Identificação racial"
+        value={formData.racial_identity}
+        onChange={props.handleOnChange}
+        disabled={notAnswer}
+      >
+        <option value=""></option>
+        <RacialIdentityOptions />
+      </Select>
+      <Select
+        label="Renda familiar"
+        name="family_income"
+        value={formData.family_income}
+        onChange={props.handleOnChange}
+        disabled={notAnswer}
+      >
+        <option value=""></option>
+        <FamilyIncomeOptions />
+      </Select>
+      <Checkbox
+        label="Descendente indígena"
+        name="indigenous_descendancy"
+        checked={formData.indigenous_descendancy}
+        onChange={props.handleOnChange}
+        disabled={notAnswer}
+      />
+      <Checkbox
+        label="Pessoa com deficiência"
+        name="has_disability"
+        checked={formData.has_disability}
+        onChange={props.handleOnChange}
+        disabled={notAnswer}
+      />
+      <Checkbox
+        label="LGBTQIA+"
+        name="is_lgbtqia"
+        checked={formData.is_lgbtqia}
+        onChange={props.handleOnChange}
+        disabled={notAnswer}
+      />
       <FormControls validate={validate} />
     </>
   );

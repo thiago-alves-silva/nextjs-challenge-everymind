@@ -2,7 +2,7 @@
 import { CandidateApi } from "@/types/ICandidate";
 import { createContext, useContext, useState } from "react";
 
-type CandidateWithoutId = Omit<CandidateApi, "id">;
+type CandidateWithoutId = Omit<CandidateApi, "_id">;
 
 interface CandidateFormContext {
   formData: CandidateWithoutId;
@@ -22,7 +22,6 @@ export const CandidateFormProvider = ({
   children: React.ReactNode;
 }) => {
   const initialState: CandidateWithoutId = {
-    _id: "",
     email: "",
     name: "",
     cpf: "",
@@ -37,11 +36,11 @@ export const CandidateFormProvider = ({
     is_lgbtqia: null,
     state: null,
     city: null,
+    profile_image: null,
   };
   const [formData, setFormData] = useState<CandidateWithoutId>(initialState);
   const [step, setStep] = useState(0);
   const descriptions = [
-    "Para prosseguir com o cadastro faremos uma verificação do seu e-mail",
     "Preencha os seus dados cadastrais para continuar a criação do seu perfil",
     "Crie uma senha para garantir a segurança do seu acesso à plataforma",
     "Para finalizar, complemente seu perfil com algumas informações sociais",

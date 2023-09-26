@@ -1,21 +1,22 @@
 "use client";
 import { LOGIN_USER_POST } from "@/api";
 import { isUserLogin } from "@/types/IUserLogin";
-import { User } from "@/types/User";
+import { UserType } from "@/types/UserType";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import MailIcon from "../../../../../../public/mail.svg";
 import PasswordIcon from "../../../../../../public/password.svg";
 import BackButton from "@/components/BackButton";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Link from "next/link";
+import Loading from "@/components/Loading";
+import displayNotification from "@/utils/displayNotification";
 import validateEmail from "@/utils/validateEmail";
 import styles from "./LoginForm.module.css";
-import { useState } from "react";
-import Loading from "@/components/Loading";
 
 interface LoginFormProps {
-  user: User;
+  user: UserType;
 }
 
 const LoginForm = ({ user }: LoginFormProps) => {
@@ -27,10 +28,19 @@ const LoginForm = ({ user }: LoginFormProps) => {
     const payload = Object.assign(credentials, { user });
 
     if (!isUserLogin(payload)) {
-      // erro desconhecido
-      console.log("erro desconhecido");
-      return;
+      return displayNotification({
+        text: "Erro desconhecido",
+        type: "error",
+      });
     }
+
+    if (!payload.email.trim() || !payload.password.trim()) {
+      return displayNotification({
+        text: "Preencha todos os campos",
+        type: "error",
+      });
+    }
+
     setLoading(true);
 
     if (validateEmail(payload.email)) {
@@ -44,8 +54,14 @@ const LoginForm = ({ user }: LoginFormProps) => {
         console.log("Usuário logado com sucesso");
         router.push("/dashboard");
       } else {
-        console.log(`[${response.status}] Falha no login:`);
-        console.log(await response.text());
+        if (response.status === 400) {
+          displayNotification({
+            text: "E-mail ou senha incorretos!",
+            type: "error",
+          });
+        } else {
+          displayNotification({ text: "Falha no login", type: "error" });
+        }
       }
     } else {
       console.log("Email invalido");

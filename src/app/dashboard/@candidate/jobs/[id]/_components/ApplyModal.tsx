@@ -1,11 +1,12 @@
+import { Candidature } from "@/types/ICandidature";
 import { CANDIDATURE_POST } from "@/api";
 import { useState } from "react";
 import CurriculumSent from "./CurriculumSent";
 import Modal from "@/components/Modal";
 import SendCurriculum from "./SendCurriculum";
 import getBase64FromFile from "@/utils/getBase64FromFile";
-import { Candidature } from "@/types/ICandidature";
 import getUserFromTokenOnClientSide from "@/utils/getUserFromTokenOnClientSide";
+import displayNotification from "@/utils/displayNotification";
 
 interface ApplyModalProps {
   jobId: string;
@@ -40,7 +41,7 @@ const ApplyModal = (props: ApplyModalProps) => {
           current_step: 0,
           answers: [],
           feedback: "",
-          curriculum: base64.replace(/^.+?,/, ""),
+          curriculum: base64,
         };
 
         const { url, options } = CANDIDATURE_POST(props.jobId, payload);
@@ -48,6 +49,11 @@ const ApplyModal = (props: ApplyModalProps) => {
 
         if (response.ok) {
           setCurriculumSent(true);
+        } else {
+          displayNotification({
+            text: "Erro ao realizar a candidatura",
+            type: "error",
+          });
         }
       }
     }

@@ -9,7 +9,7 @@ const normalizeCandidate = (candidateApi: CandidateApi): Candidate => {
     name: candidateApi.name,
     cpf: candidateApi.cpf,
     phone: candidateApi.phone,
-    birthDate: new Date(candidateApi.birthdate),
+    birthdate: new Date(candidateApi.birthdate),
     password: candidateApi.password,
     racial_identity: isRacialIdentity(racialIdentity) ? racialIdentity : null,
     family_income: candidateApi.family_income,
@@ -18,6 +18,7 @@ const normalizeCandidate = (candidateApi: CandidateApi): Candidate => {
     is_lgbtqia: candidateApi.is_lgbtqia,
     state: candidateApi.state,
     city: candidateApi.city,
+    profile_image: candidateApi.profile_image,
   };
 
   return candidate;

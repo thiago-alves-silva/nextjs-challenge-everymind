@@ -8,6 +8,8 @@ import Link from "next/link";
 import StepModal from "./StepModal";
 import styles from "./CandidatureItem.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
+import normalizeWorkModel from "@/utils/normalizeWorkModel";
+import { WorkModel } from "@/types/WorkModel";
 
 interface CandidatureProps {
   candidature: CandidatureWithJobAndCompany;
@@ -17,9 +19,9 @@ const CandidatureItem = ({ candidature }: CandidatureProps) => {
   const [stepsForm, setStepsForm] = useState<FormStep[] | null>(null);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const { job } = candidature;
-  const location = `${job?.city ?? ""} - ${job?.state ?? ""} ${
-    job?.work_model ? `(${job.work_model})` : ""
-  }`;
+  const location = `${job?.city ?? ""} - ${
+    job?.state ?? ""
+  } (${normalizeWorkModel(job?.work_model as WorkModel)})`;
   const currentStep = job?.steps[candidature.current_step];
   const router = useRouter();
   const searchParams = useSearchParams();

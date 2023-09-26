@@ -4,8 +4,8 @@
   border-bottom-color: transparent;
   border-radius: 50%;
   animation: rotation 1s linear infinite;
-  width: 1rem;
-  height: 1rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 @keyframes rotation {

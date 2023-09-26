@@ -1,0 +1,14 @@
+.profile-image {
+  position: relative;
+  background-color: var(--c7);
+  border: 3px solid var(--c5);
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  width: 9rem;
+  height: 9rem;
+}
+
+.image {
+  object-fit: cover;
+}

@@ -12,4 +12,5 @@ export interface Company {
   state: string;
   city: string;
   password: string;
+  profile_image?: string;
 }

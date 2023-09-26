@@ -1,9 +1,10 @@
 "use client";
-import CurrentFormStep from "./CurrentFormStep";
-import styles from "./CandidateForm.module.css";
+import { CANDIDATE_POST } from "@/api";
 import { useCandidateForm } from "@/context/CandidateFormContext";
-import { REGISTER_CANDIDATE_POST } from "@/api";
 import { useRouter } from "next/navigation";
+import CurrentFormStep from "./CurrentFormStep";
+import displayNotification from "@/utils/displayNotification";
+import styles from "./CandidateForm.module.css";
 
 const CandidateForm = () => {
   const { formData } = useCandidateForm();
@@ -12,19 +13,23 @@ const CandidateForm = () => {
   const handleSubmit: React.FormEventHandler = async (event) => {
     event.preventDefault();
 
-    document.cookie = `user=candidate`;
-    const { url, options } = REGISTER_CANDIDATE_POST(formData);
+    const { url, options } = CANDIDATE_POST(formData);
     const response = await fetch(url, options);
 
     if (response.ok) {
       const { token } = await response.json();
 
-      console.log("Candidato cadastrado com sucesso!");
       document.cookie = `token=${token};Max-Age=3600;Path=/`;
+      displayNotification({
+        text: "Cadastro realizado com sucesso",
+        type: "success",
+      });
       router.push("/dashboard");
     } else {
-      console.log("falha no cadastro");
-      console.log(await response.text());
+      displayNotification({
+        text: "Erro ao realizar o cadastro",
+        type: "error",
+      });
     }
   };
 
