@@ -1,8 +1,14 @@
 "use client";
+import { cnpjRegex } from "@/regex";
+import { Company } from "@/types/ICompany";
+import { REGISTER_COMPANY_POST } from "@/api";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import BackButton from "@/components/BackButton";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
+import BrazilianStatesOptions from "@/components/BrazilianStatesOptions";
 import validateEmail from "@/utils/validateEmail";
 import validatePhone from "@/utils/validatePhone";
 import maskCnpj from "@/utils/maskCnpj";
@@ -11,29 +17,21 @@ import maskCep from "@/utils/maskCep";
 import validateCep from "@/utils/validateCep";
 import getAddressByCep from "@/utils/getAddressByCep";
 import styles from "./CompanyForm.module.css";
-import { Company } from "@/types/ICompany";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { REGISTER_COMPANY_POST } from "@/api";
-import BrazilianStatesOptions from "@/components/BrazilianStatesOptions";
-import { cnpjRegex } from "@/regex";
-import { cookies } from "next/headers";
 
 const CompanyForm = () => {
   const minPasswordLength = 8;
   const router = useRouter();
-  const [formData, setFormData] = useState<Company>({
+  const [formData, setFormData] = useState<Omit<Company, "_id">>({
     name: "",
     cnpj: "",
     email: "",
     phone: "",
     cep: "",
     address: "",
-    number: "",
+    number: 0,
     state: "",
     city: "",
     password: "",
-    jobs: [],
   });
   const [hasMinChars, setHasMinChars] = useState(false);
   const [hasUppercase, setHasUppercase] = useState(false);
@@ -215,7 +213,7 @@ const CompanyForm = () => {
             type="number"
             name="number"
             label="Número"
-            value={formData.number}
+            value={String(formData.number)}
             onChange={handleChange}
             disabled={!formData.address}
           />

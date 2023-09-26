@@ -8,6 +8,8 @@ import JobCard from "./_components/JobCard";
 import normalizeJob from "@/utils/normalizeJob";
 import Link from "next/link";
 import { Metadata } from "next";
+import getUserFromTokenOnServerSide from "@/utils/getUserFromTokenOnServerSide";
+import getJobListByCompany from "@/utils/getJobListByCompany";
 
 export async function generateMetadata({
   params,
@@ -22,7 +24,9 @@ export async function generateMetadata({
 }
 
 const CandidateCompanyPage = async () => {
-  const company = await getCompany("123");
+  const user = getUserFromTokenOnServerSide();
+  const company = user ? await getCompany(user.id) : null;
+  const jobs = company ? await getJobListByCompany(company._id) : null;
 
   return (
     <DashboardModal>
@@ -60,11 +64,11 @@ const CandidateCompanyPage = async () => {
           >{`${company?.city}, ${company?.state}`}</address>
         </li>
       </ul>
-      {company?.jobs.length && (
+      {jobs?.length && (
         <div>
           <span className={styles["job-title"]}>Vagas publicadas</span>
           <ul className={styles["job-list"]}>
-            {company.jobs.map((job) => (
+            {jobs.map((job) => (
               <li key={job._id} className={styles["job-item"]}>
                 <Link href={`/dashboard/jobs/${job._id}`}>
                   <JobCard job={normalizeJob(job)} elapsedTime={true} />

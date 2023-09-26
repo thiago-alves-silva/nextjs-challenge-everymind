@@ -11,12 +11,15 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import validateEmail from "@/utils/validateEmail";
 import styles from "./LoginForm.module.css";
+import { useState } from "react";
+import Loading from "@/components/Loading";
 
 interface LoginFormProps {
   user: User;
 }
 
 const LoginForm = ({ user }: LoginFormProps) => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (data: FormData) => {
@@ -28,6 +31,7 @@ const LoginForm = ({ user }: LoginFormProps) => {
       console.log("erro desconhecido");
       return;
     }
+    setLoading(true);
 
     if (validateEmail(payload.email)) {
       const { url, options } = LOGIN_USER_POST(payload);
@@ -46,6 +50,8 @@ const LoginForm = ({ user }: LoginFormProps) => {
     } else {
       console.log("Email invalido");
     }
+
+    setLoading(false);
   };
 
   return (
@@ -62,7 +68,9 @@ const LoginForm = ({ user }: LoginFormProps) => {
         >
           <PasswordIcon />
         </Input>
-        <Button fullWidth={true}>Entrar</Button>
+        <Button fullWidth={true} disabled={loading}>
+          {loading ? <Loading /> : "Entrar"}
+        </Button>
       </form>
       <div className={styles["buttons-container"]}>
         <Link href={"/"} className={styles["back"]}>

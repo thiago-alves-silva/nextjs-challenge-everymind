@@ -15,6 +15,10 @@ import getCandidaturesByJobId from "@/utils/getCandidaturesByJobId";
 import { JobApi } from "@/types/IJob";
 import { Candidature } from "@/types/ICandidature";
 import getUserFromTokenOnServerSide from "@/utils/getUserFromTokenOnServerSide";
+import normalizeWorkModel from "@/utils/normalizeWorkModel";
+import { WorkModel } from "@/types/WorkModel";
+import normalizeExperienceLevel from "@/utils/normalizeExperienceLevel";
+import { ExperienceLevel } from "@/types/ExperienceLevel";
 
 export async function generateMetadata({
   params,
@@ -52,7 +56,9 @@ const CandidateJobPage = async ({ params }: { params: { id: string } }) => {
           </div>
           <div className={styles.attribute}>
             <WorkIcon />
-            <span className={styles.label}>{job.work_model}</span>
+            <span className={styles.label}>
+              {normalizeWorkModel(job.work_model as WorkModel)}
+            </span>
           </div>
           <div className={styles.attribute}>
             <MoneyIcon />
@@ -69,7 +75,9 @@ const CandidateJobPage = async ({ params }: { params: { id: string } }) => {
           <div className={styles.attribute}>
             <StarIcon />
             <span className={styles.label}>
-              {job.experience_level.toUpperCase()}
+              {normalizeExperienceLevel(
+                job.experience_level as ExperienceLevel
+              )}
             </span>
           </div>
         </div>

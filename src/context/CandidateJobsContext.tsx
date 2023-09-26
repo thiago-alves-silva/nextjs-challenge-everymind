@@ -27,7 +27,7 @@ export const CandidateJobsProvider = ({
   const [jobs, setJobs] = useState<Job[]>([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [filter, setFilter] = useState<JobFilter>({
-    announcement_time: "any",
+    announcement_time: "",
     experience_level: null,
     work_model: null,
     location: null,
