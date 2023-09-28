@@ -6,6 +6,7 @@ import Select from "@/components/Select";
 import BrazilianStatesOptions from "@/components/BrazilianStatesOptions";
 import getJobList from "@/utils/getJobList";
 import styles from "./CandidateJobFilterModal.module.css";
+import displayNotification from "@/utils/displayNotification";
 
 interface CandidateJobFilterModalProps {
   onClose: () => void;
@@ -31,6 +32,10 @@ const CandidateJobFilterModal = (props: CandidateJobFilterModalProps) => {
       (async () => {
         const jobs = await getJobList(filter);
 
+        displayNotification({
+          text: "Filtro aplicado com sucesso!",
+          type: "success",
+        });
         setJobs(jobs);
         props.onClose();
       })();

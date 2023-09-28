@@ -5,13 +5,17 @@ const getAddressByCep = async (cep: string) => {
   const { url, options } = ADDRESS_BY_CEP_GET(cep);
   const response = await fetch(url, options);
 
-  const address = await response.json();
+  if (response.ok) {
+    const address = await response.json();
 
-  if ("erro" in address) {
-    return address as { erro: string };
+    if ("erro" in address) {
+      return address as { erro: string };
+    }
+
+    return address as Address;
   }
 
-  return address as Address;
+  return null;
 };
 
 export default getAddressByCep;

@@ -43,7 +43,7 @@ const CandidateDashboardJobsPage = async () => {
         <CandidateJobsProvider>
           <JobContent
             jobInvitations={[]}
-            jobRecommendation={jobRecommendation}
+            jobRecommendation={jobRecommendation.filter((job) => job.active)}
           />
         </CandidateJobsProvider>
       </DashboardModal>

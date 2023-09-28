@@ -1,10 +1,12 @@
 import Button from "@/components/Button";
 import styles from "./SendCurriculum.module.css";
+import Loading from "@/components/Loading";
 
 interface SendCurriculumProps {
   file?: File;
   onSelectFile: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit: React.MouseEventHandler;
+  loading: boolean;
 }
 
 const SendCurriculum = (props: SendCurriculumProps) => {
@@ -29,8 +31,11 @@ const SendCurriculum = (props: SendCurriculumProps) => {
         <label htmlFor="curriculum" className={styles["upload-button"]}>
           Carregar currículo
         </label>
-        <Button onClick={props.onSubmit} disabled={!props.file}>
-          Enviar
+        <Button
+          onClick={props.onSubmit}
+          disabled={!props.file || props.loading}
+        >
+          {props.loading ? <Loading /> : "Enviar"}
         </Button>
       </div>
     </div>

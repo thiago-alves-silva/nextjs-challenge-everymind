@@ -3,8 +3,8 @@ import { JOB_POST } from "@/api";
 import { useRouter } from "next/navigation";
 import { useJobForm } from "@/context/JobFormContext";
 import CurrentFormStep from "./CurrentFormStep";
+import displayNotification from "@/utils/displayNotification";
 import styles from "./JobForm.module.css";
-import getCookieByName from "@/utils/getCookieByName";
 
 const JobForm = () => {
   const { formData } = useJobForm();
@@ -19,10 +19,13 @@ const JobForm = () => {
     const response = await fetch(url, options);
 
     if (response.ok) {
-      console.log("Vaga criada com sucesso!");
+      displayNotification({
+        text: "Vaga cadastrada com sucesso",
+        type: "success",
+      });
       router.push("/dashboard/jobs");
     } else {
-      console.log("Erro ao criar uma vaga");
+      displayNotification({ text: "Falha ao cadastrar a vaga", type: "error" });
     }
   };
 

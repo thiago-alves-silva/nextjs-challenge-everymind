@@ -10,6 +10,7 @@ import LgbtIcon from "../../../../../public/lgbt.svg";
 import CampIcon from "../../../../../public/camp.svg";
 import getAgeByBirthDate from "@/utils/getAgeByBirthDate";
 import styles from "./CandidateProfile.module.css";
+import Image from "next/image";
 
 interface CandidateProfileProps {
   candidate: CandidateApi;
@@ -20,7 +21,14 @@ const CandidateProfile = ({ candidate }: CandidateProfileProps) => {
 
   return (
     <>
-      <div className={styles.image}></div>
+      <div className={styles.image}>
+        <Image
+          src={`/api/candidate/image/${candidate.profile_image}`}
+          alt="Foto de perfil"
+          width={96}
+          height={96}
+        />
+      </div>
       <span className={styles.name}>{candidate.name}</span>
       <ul className={styles["attribute-list"]}>
         <li>

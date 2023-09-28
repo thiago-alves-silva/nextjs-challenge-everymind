@@ -7,6 +7,7 @@ import { CANDIDATURE_PUT } from "@/api";
 import { useRouter } from "next/navigation";
 import getCandidature from "@/utils/getCandidature";
 import { Candidature } from "@/types/ICandidature";
+import displayNotification from "@/utils/displayNotification";
 
 interface FeedbackFormProps {
   candidatureId: string;
@@ -27,10 +28,16 @@ const FeedbackForm = (props: FeedbackFormProps) => {
     const response = await fetch(url, options);
 
     if (response.ok) {
-      console.log(
-        `Feedback enviado com sucesso para a candidatura ${props.candidatureId}`
-      );
+      displayNotification({
+        text: "Feedback enviado com sucesso",
+        type: "success",
+      });
       router.push("/dashboard/candidatures?feedback");
+    } else {
+      displayNotification({
+        text: "Falha no envio do feedback",
+        type: "error",
+      });
     }
   };
 

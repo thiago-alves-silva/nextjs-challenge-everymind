@@ -7,3 +7,15 @@
   padding: 6rem 4rem;
   width: min(450px, 100%);
 }
+
+@media (max-width: 500px) {
+  .container {
+    padding: 6rem 3rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 6rem 2rem;
+  }
+}

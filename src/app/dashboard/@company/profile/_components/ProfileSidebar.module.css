@@ -38,5 +38,47 @@
 .logout-button {
   all: unset;
   color: var(--c3);
+  text-align: center;
   cursor: pointer;
+  width: 100%;
+}
+
+@media (max-width: 800px) and (min-width: 500px) {
+  .container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-items: flex-start;
+    align-items: flex-start;
+    gap: 0 2rem;
+  }
+
+  .profile-name {
+    font-size: 1.5rem;
+    text-align: start;
+    align-self: flex-end;
+  }
+
+  .nav-container {
+    grid-column: 2;
+  }
+
+  .nav {
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-image {
+    grid-row: 1 / 3;
+  }
+
+  .link,
+  .logout-button {
+    text-align: start;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .nav {
+    margin-bottom: 0.5rem;
+  }
 }

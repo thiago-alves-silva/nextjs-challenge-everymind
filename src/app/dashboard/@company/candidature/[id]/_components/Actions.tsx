@@ -3,8 +3,8 @@ import { Candidature } from "@/types/ICandidature";
 import { useState } from "react";
 import Button from "@/components/Button";
 import FeedbackModal from "./FeedbackModal";
-import styles from "./Actions.module.css";
 import Link from "next/link";
+import styles from "./Actions.module.css";
 
 interface ActionsProps {
   candidature: Candidature;
@@ -26,7 +26,7 @@ const Actions = (props: ActionsProps) => {
         href={`/api/curriculum/${props.candidature.curriculum}`}
         target="_blank"
       >
-        <Button>Visualizar currículo</Button>
+        <Button fullWidth={true}>Visualizar currículo</Button>
       </Link>
       {displayFeedback && (
         <FeedbackModal

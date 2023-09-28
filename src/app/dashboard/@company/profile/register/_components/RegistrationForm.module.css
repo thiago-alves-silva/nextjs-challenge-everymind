@@ -18,3 +18,9 @@
   align-self: flex-end;
   margin-top: 1rem;
 }
+
+@media (max-width: 800px) {
+  .double-inputs {
+    flex-direction: column;
+  }
+}

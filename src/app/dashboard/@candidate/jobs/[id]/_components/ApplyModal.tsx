@@ -16,6 +16,7 @@ interface ApplyModalProps {
 const ApplyModal = (props: ApplyModalProps) => {
   const [file, setFile] = useState<File>();
   const [curriculumSent, setCurriculumSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSelectFile: React.ChangeEventHandler<HTMLInputElement> = ({
     target,
@@ -34,6 +35,8 @@ const ApplyModal = (props: ApplyModalProps) => {
       const user = getUserFromTokenOnClientSide();
 
       if (user) {
+        setLoading(true);
+
         const base64 = (await getBase64FromFile(file)) ?? "";
         const payload: Omit<Candidature, "_id"> = {
           candidate_id: user.id,
@@ -55,6 +58,8 @@ const ApplyModal = (props: ApplyModalProps) => {
             type: "error",
           });
         }
+
+        setLoading(false);
       }
     }
   };
@@ -68,6 +73,7 @@ const ApplyModal = (props: ApplyModalProps) => {
           file={file}
           onSelectFile={onSelectFile}
           onSubmit={handleSubmit}
+          loading={loading}
         />
       )}
     </Modal>

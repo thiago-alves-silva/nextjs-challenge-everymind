@@ -1,6 +1,7 @@
 .statistic-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
   gap: 1rem;
   list-style: none;
   padding: 0.5rem 0;
@@ -33,4 +34,10 @@
 .statistic-list li ul {
   grid-column: 1 / -1;
   margin-left: 1.75rem;
+}
+
+@media (max-width: 800px) {
+  .statistic-list {
+    grid-template-columns: 1fr;
+  }
 }

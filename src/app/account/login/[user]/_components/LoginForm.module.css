@@ -14,11 +14,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap-reverse;
+  gap: 0.5rem 2rem;
 }
 
 .not-registered {
+  flex: 1;
   color: var(--c5);
   font-size: 0.875rem;
+  text-align: end;
+  white-space: nowrap;
 }
 
 .not-registered:hover {

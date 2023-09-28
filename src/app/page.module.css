@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr;
-  gap: 2rem 0;
+  gap: 2rem;
   padding: 6rem 6rem 0;
   box-sizing: border-box;
   margin: auto;
@@ -15,7 +15,7 @@
   font-size: 4rem;
   font-weight: 900;
   margin-bottom: 0.5rem;
-  max-width: 15ch;
+  width: 15ch;
 }
 
 .subtitle {
@@ -23,6 +23,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.25rem;
+  max-width: 36ch;
 }
 
 .description {
@@ -43,29 +44,81 @@
   color: var(--c2);
   font-size: 1rem;
   letter-spacing: 0.05rem;
+  text-align: center;
   text-transform: uppercase;
   border-radius: 4px;
   transition: background 0.2s;
   padding: 0.75rem 1rem;
+  width: 240px;
 }
 
-.candidate-button {
+.button.candidate-button {
   color: var(--c7);
   font-weight: 700;
   background-color: var(--p1);
 }
 
 .figure-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
   justify-self: flex-end;
   align-self: flex-end;
-  padding: 8rem 0 0 6rem;
   width: min(500px, 100%);
 }
 
-.notice {
-  grid-column: 1/-1;
-  color: var(--c3);
-  font-size: 0.75rem;
-  text-align: center;
-  margin-bottom: 1rem;
+.figure-container svg {
+  max-width: 400px;
+}
+
+@media (max-width: 1000px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+
+  .figure-container {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .main {
+    padding: 6rem 4rem 0;
+  }
+
+  .title {
+    font-size: 3rem;
+    width: unset;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .button {
+    background-color: var(--c6);
+  }
+}
+
+@media (max-width: 500px) {
+  .main {
+    padding: 6rem 3rem 0;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+  }
+
+  .button {
+    width: 100%;
+  }
 }

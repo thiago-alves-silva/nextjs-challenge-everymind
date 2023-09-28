@@ -51,7 +51,6 @@ const LoginForm = ({ user }: LoginFormProps) => {
         const { token } = await response.json();
 
         document.cookie = `token=${token};Max-Age=3600;Path=/`;
-        console.log("Usuário logado com sucesso");
         router.push("/dashboard");
       } else {
         if (response.status === 400) {
@@ -64,7 +63,7 @@ const LoginForm = ({ user }: LoginFormProps) => {
         }
       }
     } else {
-      console.log("Email invalido");
+      displayNotification({ text: "Insira um e-mail válido", type: "error" });
     }
 
     setLoading(false);

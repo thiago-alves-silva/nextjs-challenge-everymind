@@ -1,4 +1,6 @@
+import { ExperienceLevel } from "@/types/ExperienceLevel";
 import { Metadata } from "next";
+import { WorkModel } from "@/types/WorkModel";
 import LocationIcon from "../../../../../../public/location.svg";
 import UserIcon from "../../../../../../public/user.svg";
 import WorkIcon from "../../../../../../public/work.svg";
@@ -7,17 +9,15 @@ import ClockIcon from "../../../../../../public/clock.svg";
 import StarIcon from "../../../../../../public/star.svg";
 import CandidatureList from "../../_components/CandidatureList";
 import DashboardModal from "@/components/DashboardModal";
-import formatToCurrency from "@/utils/formatToCurrency";
-import getJob from "@/utils/getJob";
-import styles from "./page.module.css";
-import formatToLocaleDate from "@/utils/formatToLocaleDate";
 import DisableButton from "./_components/DisableButton";
-import getCandidaturesByJobId from "@/utils/getCandidaturesByJobId";
 import CandidateStatistics from "./_components/CandidateStatistics";
+import formatToCurrency from "@/utils/formatToCurrency";
+import formatToLocaleDate from "@/utils/formatToLocaleDate";
+import getCandidaturesByJobId from "@/utils/getCandidaturesByJobId";
+import getJob from "@/utils/getJob";
 import normalizeWorkModel from "@/utils/normalizeWorkModel";
-import { WorkModel } from "@/types/WorkModel";
 import normalizeExperienceLevel from "@/utils/normalizeExperienceLevel";
-import { ExperienceLevel } from "@/types/ExperienceLevel";
+import styles from "./page.module.css";
 
 export async function generateMetadata({
   params,
@@ -42,7 +42,7 @@ const CompanyDashboardJobPage = async ({
     const candidatures = await getCandidaturesByJobId(job._id);
 
     return (
-      <DashboardModal className={styles.modal}>
+      <DashboardModal className={styles["dashboard-modal"]}>
         <h1 className={styles.title}>{job.title}</h1>
         <div className={styles["job-attributes"]}>
           <div className={styles.attribute}>

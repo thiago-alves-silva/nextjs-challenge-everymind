@@ -7,6 +7,7 @@ import { CandidateFilter } from "@/types/ICandidateFilter";
 import { RacialIdentity } from "@/types/RacialIdentity";
 import RadioButton from "@/components/RadioButton";
 import getCandidateList from "@/utils/getCandidateList";
+import displayNotification from "@/utils/displayNotification";
 
 interface CompanyCandidatesFilterModalProps {
   onClose: () => void;
@@ -56,6 +57,10 @@ const CompanyCandidatesFilterModal = (
       (async () => {
         const candidates = await getCandidateList(filter);
 
+        displayNotification({
+          text: "Filtro aplicado com sucesso!",
+          type: "success",
+        });
         setCandidates(candidates);
         props.onClose();
       })();

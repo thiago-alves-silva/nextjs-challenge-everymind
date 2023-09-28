@@ -3,3 +3,9 @@
   grid-template-columns: 10rem 1fr;
   gap: 2rem;
 }
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

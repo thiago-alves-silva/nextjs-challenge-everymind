@@ -41,3 +41,9 @@
 .close-button:hover {
   background-color: var(--c6);
 }
+
+@media (max-width: 500px) {
+  .modal {
+    padding: 4rem 2rem;
+  }
+}

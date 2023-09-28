@@ -10,6 +10,7 @@ import styles from "./CandidatureItem.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import normalizeWorkModel from "@/utils/normalizeWorkModel";
 import { WorkModel } from "@/types/WorkModel";
+import displayNotification from "@/utils/displayNotification";
 
 interface CandidatureProps {
   candidature: CandidatureWithJobAndCompany;
@@ -55,12 +56,10 @@ const CandidatureItem = ({ candidature }: CandidatureProps) => {
       candidatureToSend.answers = [];
     }
 
-    if (!currentStep?.online) {
-      candidatureToSend.answers[candidature.current_step] = {
-        step: candidature.current_step,
-        values: Object.values(formData),
-      };
-    }
+    candidatureToSend.answers[candidature.current_step] = {
+      step: candidature.current_step,
+      values: currentStep?.online ? [] : Object.values(formData),
+    };
     candidatureToSend.current_step++;
 
     const { url, options } = CANDIDATURE_PUT(
@@ -70,10 +69,16 @@ const CandidatureItem = ({ candidature }: CandidatureProps) => {
     const response = await fetch(url, options);
 
     if (response.ok) {
-      console.log(
-        `Resposta da etapa ${candidature.current_step} registrada com sucesso!`
-      );
+      displayNotification({
+        text: "Respostas registradas com sucesso",
+        type: "success",
+      });
       router.refresh();
+    } else {
+      displayNotification({
+        text: "Falha ao registrar respostas da etapa",
+        type: "error",
+      });
     }
   };
 
@@ -81,7 +86,6 @@ const CandidatureItem = ({ candidature }: CandidatureProps) => {
     const returnFromFeedback = searchParams.has("feedback");
 
     if (returnFromFeedback) {
-      console.log("Veio do feedback");
       router.refresh();
     }
   }, [router, searchParams]);

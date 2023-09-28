@@ -9,7 +9,7 @@ import styles from "./StepTwo.module.css";
 import displayNotification from "@/utils/displayNotification";
 
 const StepTwo = (props: StepFormProps) => {
-  const minLength = 8;
+  const minPasswordLength = 8;
   const { formData } = useCandidateForm();
   const [hasMinChars, setHasMinChars] = useState(false);
   const [hasUppercase, setHasUppercase] = useState(false);
@@ -35,7 +35,7 @@ const StepTwo = (props: StepFormProps) => {
 
     if (!hasMinChars) {
       displayNotification({
-        text: `A senhas deve conter no mínimo ${minLength} caracteres`,
+        text: `A senhas deve conter no mínimo ${minPasswordLength} caracteres`,
         type: "error",
       });
       return false;
@@ -77,7 +77,7 @@ const StepTwo = (props: StepFormProps) => {
   };
 
   useEffect(() => {
-    setHasMinChars(formData.password.length >= minLength);
+    setHasMinChars(formData.password.length >= minPasswordLength);
     setHasUppercase(/[A-Z]/.test(formData.password));
     setHasLowercase(/[a-z]/.test(formData.password));
     setHasNumeric(/\d/.test(formData.password));

@@ -1,11 +1,11 @@
 "use client";
-import FilterButton from "@/components/FilterButton";
-import styles from "./CandidateContent.module.css";
 import { useCompanyCandidates } from "@/context/CompanyCandidatesContext";
 import { Candidate } from "@/types/ICandidate";
 import { useEffect, useState } from "react";
-import CompanyCandidatesFilterModal from "./CompanyCandidatesFilterModal";
 import CandidateList from "../../_components/CandidateList";
+import CompanyCandidatesFilterModal from "./CompanyCandidatesFilterModal";
+import FilterButton from "@/components/FilterButton";
+import styles from "./CandidateContent.module.css";
 
 interface CandidateContentProps {
   candidates: Candidate[];

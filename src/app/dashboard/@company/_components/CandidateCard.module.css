@@ -15,8 +15,13 @@
   grid-row: 1 / -1;
   background-color: var(--c5);
   border-radius: 50%;
+  overflow: hidden;
   width: 2.5rem;
   height: 2.5rem;
+}
+
+.image img {
+  object-fit: cover;
 }
 
 .name {
@@ -37,9 +42,12 @@
 }
 
 .email {
+  display: block;
   grid-column: 2 / -1;
   color: var(--c3);
   font-size: 0.875rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
   margin-bottom: 0.25rem;
 }
 

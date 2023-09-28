@@ -6,6 +6,7 @@ interface ActiveLinkProps {
   href: string;
   children?: React.ReactNode;
   className?: string;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
 const ActiveLink = (props: ActiveLinkProps) => {
@@ -17,6 +18,7 @@ const ActiveLink = (props: ActiveLinkProps) => {
     <Link
       className={`${props.className || ""} ${activeClassName}`}
       href={props.href}
+      onClick={props.onClick}
     >
       {props.children}
     </Link>

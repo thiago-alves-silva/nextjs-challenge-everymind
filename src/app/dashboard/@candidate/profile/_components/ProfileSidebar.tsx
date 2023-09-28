@@ -12,32 +12,35 @@ const ProfileSidebar = async () => {
   return (
     <div className={styles.container}>
       <ProfileImage
-        src={`/api/candidate/${user?.id}/image/${candidate?.profile_image}`}
+        src={`/api/candidate/image/${candidate?.profile_image}`}
+        className={styles["profile-image"]}
       />
       <span className={styles["profile-name"]}>{user?.name}</span>
-      <nav className={styles.nav}>
-        <ul className={styles["link-list"]}>
-          <li>
-            <ActiveLink
-              href="/dashboard/profile/register"
-              className={styles.link}
-            >
-              Dados cadastrais
-            </ActiveLink>
-            <ActiveLink
-              href="/dashboard/profile/social"
-              className={styles.link}
-            >
-              Dados sociais
-            </ActiveLink>
-          </li>
-        </ul>
-      </nav>
-      <form>
-        <button className={styles["logout-button"]} formAction={logout}>
-          Sair da conta
-        </button>
-      </form>
+      <div className={styles["nav-container"]}>
+        <nav className={styles.nav}>
+          <ul className={styles["link-list"]}>
+            <li>
+              <ActiveLink
+                href="/dashboard/profile/register"
+                className={styles.link}
+              >
+                Dados cadastrais
+              </ActiveLink>
+              <ActiveLink
+                href="/dashboard/profile/social"
+                className={styles.link}
+              >
+                Dados sociais
+              </ActiveLink>
+            </li>
+          </ul>
+        </nav>
+        <form>
+          <button className={styles["logout-button"]} formAction={logout}>
+            Sair da conta
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

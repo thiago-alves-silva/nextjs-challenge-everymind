@@ -2,9 +2,14 @@
   background-color: var(--c7);
   border: 3px solid var(--c5);
   border-radius: 50%;
+  overflow: hidden;
   margin: 0 auto 0.5rem;
   width: 6rem;
   height: 6rem;
+}
+
+.image img {
+  object-fit: cover;
 }
 
 .name {
@@ -41,4 +46,17 @@
   display: block;
   color: var(--c2);
   margin-left: 1.75rem;
+}
+
+@media (max-width: 800px) {
+  .attribute-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .attribute-list {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,4 +1,6 @@
+import { ExperienceLevel } from "@/types/ExperienceLevel";
 import { Metadata } from "next";
+import { WorkModel } from "@/types/WorkModel";
 import DashboardModal from "@/components/DashboardModal";
 import LocationIcon from "../../../../../../public/location.svg";
 import WorkIcon from "../../../../../../public/work.svg";
@@ -7,18 +9,14 @@ import ClockIcon from "../../../../../../public/clock.svg";
 import StarIcon from "../../../../../../public/star.svg";
 import ApplyButton from "./_components/ApplyButton";
 import Link from "next/link";
-import getJob from "@/utils/getJob";
 import formatToCurrency from "@/utils/formatToCurrency";
 import formatToLocaleDate from "@/utils/formatToLocaleDate";
-import styles from "./page.module.css";
 import getCandidaturesByJobId from "@/utils/getCandidaturesByJobId";
-import { JobApi } from "@/types/IJob";
-import { Candidature } from "@/types/ICandidature";
+import getJob from "@/utils/getJob";
 import getUserFromTokenOnServerSide from "@/utils/getUserFromTokenOnServerSide";
 import normalizeWorkModel from "@/utils/normalizeWorkModel";
-import { WorkModel } from "@/types/WorkModel";
 import normalizeExperienceLevel from "@/utils/normalizeExperienceLevel";
-import { ExperienceLevel } from "@/types/ExperienceLevel";
+import styles from "./page.module.css";
 
 export async function generateMetadata({
   params,

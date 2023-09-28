@@ -11,6 +11,7 @@ import maskPhone from "@/utils/maskPhone";
 import validateCep from "@/utils/validateCep";
 import validatePhone from "@/utils/validatePhone";
 import styles from "./RegistrationForm.module.css";
+import displayNotification from "@/utils/displayNotification";
 
 interface RegistrationFormProps {
   company: Company | null;
@@ -86,7 +87,10 @@ const RegistrationForm = (props: RegistrationFormProps) => {
     const response = await fetch(url, options);
 
     if (response.ok) {
-      console.log("Dados cadastrais do candidato atualizados com sucesso!");
+      displayNotification({
+        text: "Dados atualizados com sucesso",
+        type: "success",
+      });
       setHasChange(false);
     }
   };

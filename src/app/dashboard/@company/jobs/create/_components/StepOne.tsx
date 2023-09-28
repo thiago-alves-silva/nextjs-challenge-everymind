@@ -81,10 +81,11 @@ const StepOne = (props: StepFormProps) => {
           theme="light"
         >
           <option value=""></option>
-          <option value="estagio">Estágio</option>
+          <option value="internship">Estágio</option>
           <option value="junior">Júnior</option>
-          <option value="pleno">Pleno</option>
+          <option value="full">Pleno</option>
           <option value="senior">Senior</option>
+          <option value="director">Diretor</option>
         </Select>
       </div>
       <div className={styles["double-inputs"]}>
@@ -96,9 +97,9 @@ const StepOne = (props: StepFormProps) => {
           theme="light"
         >
           <option value=""></option>
-          <option value="hibrido">Híbrido</option>
-          <option value="presencial">Presencial</option>
-          <option value="remoto">Remoto</option>
+          <option value="hybrid">Híbrido</option>
+          <option value="in_person">Presencial</option>
+          <option value="remote">Remoto</option>
         </Select>
         <div className={styles["salary"]}>
           <Input

@@ -2,6 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  margin-bottom: 2rem;
 }
 
 .create-button {
@@ -19,4 +22,10 @@
   color: var(--c3);
   text-align: center;
   padding: 4rem 0 2rem;
+}
+
+@media (max-width: 700px) {
+  .job-list {
+    grid-template-columns: 1fr;
+  }
 }

@@ -16,6 +16,7 @@ import maskPhone from "@/utils/maskPhone";
 import maskCep from "@/utils/maskCep";
 import validateCep from "@/utils/validateCep";
 import getAddressByCep from "@/utils/getAddressByCep";
+import displayNotification from "@/utils/displayNotification";
 import styles from "./CompanyForm.module.css";
 
 const CompanyForm = () => {
@@ -39,7 +40,6 @@ const CompanyForm = () => {
   const [hasNumeric, setHasNumeric] = useState(false);
   const [hasSpecialChars, setHasSpecialChars] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [validFields, setValidFields] = useState(false);
 
   const handleChange: React.ChangeEventHandler<
     HTMLInputElement | HTMLSelectElement
@@ -49,18 +49,25 @@ const CompanyForm = () => {
   const handleSubmit: React.FormEventHandler = async (event) => {
     event.preventDefault();
 
-    const { url, options } = COMPANY_POST(formData);
-    const response = await fetch(url, options);
+    if (validate()) {
+      const { url, options } = COMPANY_POST(formData);
+      const response = await fetch(url, options);
 
-    if (response.ok) {
-      const { token } = await response.json();
+      if (response.ok) {
+        const { token } = await response.json();
 
-      console.log("Companhia cadastrado com sucesso!");
-      document.cookie = `token=${token};Max-Age=3600;Path=/`;
-      router.push("/dashboard");
-    } else {
-      console.log(`[${response.status}] Falha no login:`);
-      console.log(await response.text());
+        document.cookie = `token=${token};Max-Age=3600;Path=/`;
+        displayNotification({
+          text: "Cadastro realizado com sucesso",
+          type: "success",
+        });
+        router.push("/dashboard");
+      } else {
+        displayNotification({
+          text: "Erro ao realizar o cadastro",
+          type: "error",
+        });
+      }
     }
   };
 
@@ -72,37 +79,105 @@ const CompanyForm = () => {
       !formData.state ||
       !formData.city
     ) {
+      displayNotification({ text: "Preencha todos os campos", type: "error" });
       return false;
     }
 
     if (!cnpjRegex.test(formData.cnpj)) {
+      displayNotification({
+        text: !formData.cnpj.trim()
+          ? "Preencha um CNPJ"
+          : "Insira um CNPJ válido",
+        type: "error",
+      });
       return false;
     }
 
     if (!validateEmail(formData.email)) {
+      displayNotification({
+        text: !formData.email.trim()
+          ? "Preencha um e-mail"
+          : "Insira um e-mail válido",
+        type: "error",
+      });
       return false;
     }
 
     if (!validatePhone(formData.phone)) {
+      displayNotification({
+        text: !formData.phone.trim()
+          ? "Preencha um telefone"
+          : "Insira um telefone válido",
+        type: "error",
+      });
       return false;
     }
 
     if (!validateCep(formData.cep)) {
+      displayNotification({
+        text: !formData.cep.trim() ? "Preencha um CEP" : "Insira um CEP válido",
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!formData.password) {
+      displayNotification({
+        text: "Insira uma senha",
+        type: "error",
+      });
       return false;
     }
 
     if (confirmPassword !== formData.password) {
+      displayNotification({
+        text: "A senha e a confirmação de senha devem coincidir",
+        type: "error",
+      });
       return false;
     }
 
-    // valida os requisitos da senha
-    return (
-      hasMinChars &&
-      hasUppercase &&
-      hasLowercase &&
-      hasNumeric &&
-      hasSpecialChars
-    );
+    if (!hasMinChars) {
+      displayNotification({
+        text: `A senhas deve conter no mínimo ${minPasswordLength} caracteres`,
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!hasUppercase) {
+      displayNotification({
+        text: `A senhas deve conter letras maiúsculas`,
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!hasLowercase) {
+      displayNotification({
+        text: `A senhas deve conter letras minúsculas`,
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!hasNumeric) {
+      displayNotification({
+        text: `A senhas deve conter números`,
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!hasSpecialChars) {
+      displayNotification({
+        text: `A senhas deve conter caracteres especiais`,
+        type: "error",
+      });
+      return false;
+    }
+
+    return true;
   }, [
     confirmPassword,
     formData,
@@ -112,10 +187,6 @@ const CompanyForm = () => {
     hasSpecialChars,
     hasUppercase,
   ]);
-
-  useEffect(() => {
-    setValidFields(validate());
-  }, [formData, validate]);
 
   useEffect(() => {
     setHasMinChars(formData.password.length >= minPasswordLength);
@@ -130,19 +201,27 @@ const CompanyForm = () => {
   useEffect(() => {
     if (validateCep(formData.cep)) {
       (async () => {
+        displayNotification({ text: "Buscando CEP...", type: "info" });
         const address = await getAddressByCep(formData.cep);
 
-        if (!("erro" in address)) {
-          setFormData((formData) => {
-            const { bairro, complemento, localidade, logradouro, uf } = address;
-            const complement = complemento ? `, ${complemento}` : "";
-            const neighborhood = bairro ? `- ${bairro}` : "";
-            formData.address = `${logradouro} ${complement} ${neighborhood}`;
-            formData.state = uf;
-            formData.city = localidade;
+        if (address) {
+          if ("erro" in address) {
+            displayNotification({ text: "CEP não encontrado", type: "error" });
+          } else {
+            setFormData((formData) => {
+              const { bairro, complemento, localidade, logradouro, uf } =
+                address;
+              const complement = complemento ? `, ${complemento}` : "";
+              const neighborhood = bairro ? `- ${bairro}` : "";
+              formData.address = `${logradouro} ${complement} ${neighborhood}`;
+              formData.state = uf;
+              formData.city = localidade;
 
-            return { ...formData };
-          });
+              return { ...formData };
+            });
+          }
+        } else {
+          displayNotification({ text: "Falha na busca do CEP", type: "error" });
         }
       })();
     } else {
@@ -274,7 +353,7 @@ const CompanyForm = () => {
       </div>
       <div className={styles["buttons-container"]}>
         <BackButton onClick={() => router.back()} />
-        <Button disabled={!validFields}>Finalizar</Button>
+        <Button>Finalizar</Button>
       </div>
     </form>
   );

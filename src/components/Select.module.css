@@ -26,6 +26,7 @@
   fill: var(--c2);
   border: 2px solid var(--c2);
   border-radius: 4px;
+  overflow: hidden;
   transition: border-color 0.2s;
 }
 

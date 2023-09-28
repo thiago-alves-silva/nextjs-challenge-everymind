@@ -1,11 +1,35 @@
-.header {
+.header,
+.nav {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  gap: 2rem;
+}
+
+.header {
+  justify-content: flex-end;
   background-color: var(--b3);
   padding: 1.25rem 4rem;
   height: 80px;
+}
+
+.nav {
+  gap: 1.5rem;
+}
+
+.menu-button {
+  all: unset;
+  appearance: none;
+  display: none;
+  cursor: pointer;
+  height: 2rem;
+}
+
+.menu-button svg {
+  fill: var(--c6);
+  width: 2rem;
+}
+
+.close-button {
+  display: none;
 }
 
 .links {
@@ -18,15 +42,91 @@
   color: var(--c7);
   font-size: 0.875rem;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.header .profile-button {
-  background-color: var(--b1) !important;
+.header .nav .profile-button {
+  background-color: var(--b1);
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
+  white-space: nowrap;
 }
 
-.header .profile-button:hover {
-  background-color: var(--b2) !important;
+.header .nav .profile-button:hover {
+  background-color: var(--b2);
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 1.25rem 2rem;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .nav {
+    position: fixed;
+    background-color: var(--c7);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 4rem 2rem;
+    gap: 0;
+    transition: transform 0.3s;
+    transform: translateX(100%);
+    z-index: 10;
+    top: 0;
+    right: 0;
+    width: 50dvw;
+    height: 100dvh;
+    min-width: 300px;
+  }
+
+  .nav.display-mobile-menu {
+    transform: translateX(0);
+  }
+
+  .background {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100dvh;
+    height: 100dvh;
+  }
+
+  .close-button {
+    all: unset;
+    appearance: none;
+    position: absolute;
+    cursor: pointer;
+    padding: 0.5rem;
+    top: 2rem;
+    right: 2rem;
+  }
+
+  .links {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .link {
+    display: block;
+    color: var(--b3);
+    padding: 0.75rem 0;
+  }
+
+  .header .nav .profile-button {
+    background-color: unset;
+    color: var(--b3);
+    font-weight: 400;
+    padding: 0;
+  }
+
+  .header .nav .profile-button:hover {
+    color: var(--b3);
+    background-color: unset;
+  }
 }

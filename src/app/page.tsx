@@ -11,7 +11,9 @@ const HomePage = () => {
   return (
     <main className={styles.main}>
       <div>
-        <h1 className={styles.title}>Bem-vindo(a) à nossa plataforma</h1>
+        <h1 className={styles.title}>
+          Bem-vindo(a) à <br /> nossa plataforma
+        </h1>
         <h2 className={styles.subtitle}>
           Recrutamento e seleção para pessoas candidatas em vulnerabilidade
           social
@@ -37,12 +39,6 @@ const HomePage = () => {
       <div className={styles["figure-container"]}>
         <Wheelchair />
       </div>
-      <p className={styles.notice}>
-        *Nosso foco está em pessoas que tenham se certificado em programas do EY
-        Institute. Isso nos permite garantir que os inscritos em nossa
-        plataforma tenham as habilidades necessárias para se destacar no mercado
-        de trabalho
-      </p>
     </main>
   );
 };

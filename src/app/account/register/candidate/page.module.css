@@ -1,5 +1,7 @@
 .container {
   display: flex;
+  justify-content: center;
+  width: 100%;
   min-height: 450px;
 }
 
@@ -12,7 +14,17 @@
   width: 300px;
 }
 
-.container .form-container {
+.form-container {
   border-radius: 0 4px 4px 0;
   width: 450px;
+}
+
+@media (max-width: 700px) {
+  .stepper-container {
+    display: none;
+  }
+
+  .form-container {
+    width: 100%;
+  }
 }
