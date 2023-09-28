@@ -1,36 +1,42 @@
+import { Metadata } from "next";
 import MailIcon from "../../../../../../public/mail.svg";
 import PhoneIcon from "../../../../../../public/phone.svg";
 import LocationIcon from "../../../../../../public/location.svg";
 import DashboardModal from "@/components/DashboardModal";
-import getCompany from "@/utils/getCompany";
-import styles from "./page.module.css";
+import Image from "next/image";
 import JobCard from "./_components/JobCard";
-import normalizeJob from "@/utils/normalizeJob";
 import Link from "next/link";
-import { Metadata } from "next";
-import getUserFromTokenOnServerSide from "@/utils/getUserFromTokenOnServerSide";
+import getCompany from "@/utils/getCompany";
 import getJobListByCompany from "@/utils/getJobListByCompany";
+import normalizeJob from "@/utils/normalizeJob";
+import styles from "./page.module.css";
 
 export async function generateMetadata({
   params,
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  const company = await getCompany("123");
+  const company = await getCompany(params.id);
 
   return {
     title: company?.name || `Empresa ${params.id}`,
   };
 }
 
-const CandidateCompanyPage = async () => {
-  const user = getUserFromTokenOnServerSide();
-  const company = user ? await getCompany(user.id) : null;
+const CandidateCompanyPage = async ({ params }: { params: { id: string } }) => {
+  const company = await getCompany(params.id);
   const jobs = company ? await getJobListByCompany(company._id) : null;
 
   return (
     <DashboardModal>
-      <div className={styles["profile-image"]}></div>
+      <div className={styles["profile-image"]}>
+        <Image
+          src={`/api/company/image/${company?.profile_image}`}
+          alt="Foto de perfil"
+          width={96}
+          height={96}
+        />
+      </div>
       <span className={styles["profile-name"]}>{company?.name}</span>
       <ul className={styles["data-list"]}>
         <li>

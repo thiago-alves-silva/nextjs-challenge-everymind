@@ -2,9 +2,14 @@
   background-color: var(--c7);
   border: 3px solid var(--c5);
   border-radius: 50%;
+  overflow: hidden;
   margin: 0 auto 0.5rem;
   width: 6rem;
   height: 6rem;
+}
+
+.profile-image img {
+  object-fit: cover;
 }
 
 .profile-name {
@@ -18,6 +23,7 @@
 .data-list {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 2rem;
   list-style: none;
   margin-bottom: 2rem;
@@ -42,6 +48,7 @@
 }
 
 .data {
+  display: block;
   color: var(--c2);
   font-weight: 700;
   font-style: normal;
@@ -58,12 +65,24 @@ a.data:hover {
 }
 
 .job-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
   list-style: none;
 }
 
 .job-item {
   flex: 0 0 300px;
+}
+
+@media (max-width: 700px) {
+  .job-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .data-list {
+    flex-direction: column;
+  }
 }

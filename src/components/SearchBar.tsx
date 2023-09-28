@@ -31,7 +31,11 @@ const SearchBar = (props: SearchBarProps) => {
       className={`${styles.container} ${activeClassName}`}
       onBlur={handleBlur}
     >
-      <button className={styles.button} onClick={handleClick}>
+      <button
+        aria-label="Barra de busca"
+        className={styles.button}
+        onClick={handleClick}
+      >
         <SearchIcon />
       </button>
 

@@ -9,6 +9,7 @@ const BackButton = (props: BackButtonProps) => {
   return (
     <button
       type="button"
+      aria-label="Voltar"
       className={styles["container"]}
       onClick={props.onClick}
     >

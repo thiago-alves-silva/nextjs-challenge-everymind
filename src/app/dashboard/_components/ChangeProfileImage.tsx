@@ -63,7 +63,9 @@ const ChangeProfileImage = () => {
 
   return (
     <label className={styles.container}>
-      <span className={styles.label}>Selecionar imagem</span>
+      <span className={styles.label} role="link">
+        Selecionar imagem
+      </span>
       <input type="file" accept="image/*" onChange={onChange} />
     </label>
   );

@@ -125,12 +125,16 @@ const CandidatureItem = ({ candidature }: CandidatureProps) => {
                   candidature.feedback ? styles.completed : ""
                 }`}
               >
-                <Link
-                  href={`/dashboard/candidatures/${candidature._id}/feedback`}
-                  className={styles.feedback}
-                >
-                  Feedback
-                </Link>
+                {!!candidature.feedback ? (
+                  <span className={styles.feedback}>Feedback</span>
+                ) : (
+                  <Link
+                    href={`/dashboard/candidatures/${candidature._id}/feedback`}
+                    className={styles.feedback}
+                  >
+                    Feedback
+                  </Link>
+                )}
               </li>
             )}
             <div

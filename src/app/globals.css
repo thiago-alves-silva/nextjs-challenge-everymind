@@ -40,3 +40,38 @@ button:disabled {
   pointer-events: none;
   user-select: none;
 }
+
+.high-contrast,
+.high-contrast * {
+  --b1: #fff;
+  --b2: #fff;
+  --b3: #fff;
+  background: #000 !important;
+  background-color: #000 !important;
+  color: #ff0 !important;
+}
+
+.high-contrast :is(a, [role="link"]) {
+  background-color: transparent !important;
+  color: #40e0d0 !important;
+  font-weight: 400 !important;
+}
+
+.high-contrast :is(button) {
+  background-color: transparent !important;
+  color: #add8e6 !important;
+  border: 2px solid #add8e6 !important;
+}
+
+.high-contrast :is(svg, path) {
+  background-color: #222 !important;
+}
+
+.high-contrast :is(button) :is(svg, path) {
+  fill: #add8e6 !important;
+  stroke: #add8e6 !important;
+}
+
+.high-contrast :is(input, select) {
+  border-color: #000 !important;
+}

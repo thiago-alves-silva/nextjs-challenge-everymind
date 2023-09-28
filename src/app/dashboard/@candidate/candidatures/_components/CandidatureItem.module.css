@@ -129,6 +129,7 @@
 }
 
 .step-item .feedback {
+  display: block;
   background-color: var(--b3);
   color: var(--c7);
   border-radius: 2px;

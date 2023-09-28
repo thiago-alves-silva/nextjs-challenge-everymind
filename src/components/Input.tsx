@@ -21,14 +21,20 @@ const Input: React.FC<InputProps> = (props) => {
   const focusedClass = isFocused ? styles.focused : "";
   const disabledClass = props.disabled ? styles.disabled : "";
   const themeClass = props.theme === "light" ? styles.light : styles.dark;
+  const alternativeId = `id-${Math.random()}`;
 
   return (
     <div className={`${disabledClass} ${themeClass} ${props.className || ""}`}>
-      {props.label && <span className={styles.label}>{props.label}</span>}
+      {props.label && (
+        <label htmlFor={props.name ?? alternativeId} className={styles.label}>
+          {props.label}
+        </label>
+      )}
       <div className={`${styles.container} ${focusedClass} `}>
         {props.children}
         <input
           type={props.type || "text"}
+          id={props.name ?? alternativeId}
           className={styles.input}
           name={props.name}
           placeholder={props.placeholder}

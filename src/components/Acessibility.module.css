@@ -1,0 +1,27 @@
+.acessibility {
+  display: flex;
+  gap: 24px;
+}
+
+.acessibility button {
+  background-color: var(--c7);
+  border: 2px solid var(--c4);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 32px;
+  height: 32px;
+}
+
+.acessibility button:hover {
+  background-color: var(--c6);
+}
+
+.acessibility button svg {
+  fill: var(--c1);
+}
+
+.font-size {
+  display: flex;
+  gap: 8px;
+}

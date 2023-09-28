@@ -7,6 +7,7 @@ interface ButtonProps {
   disabled?: boolean;
   onClick?: React.MouseEventHandler;
   variant?: "primary" | "secondary";
+  ariaLabel?: string;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
@@ -15,6 +16,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 
   return (
     <button
+      aria-label={props.ariaLabel ?? "Botão"}
       className={`${styles.button} ${colorClassName} ${props.className || ""}`}
       style={{ width: props.fullWidth ? "100%" : undefined }}
       onClick={props.onClick}

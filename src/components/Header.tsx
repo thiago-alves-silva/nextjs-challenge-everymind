@@ -6,6 +6,7 @@ import ActiveLink from "./ActiveLink";
 import Button from "./Button";
 import Link from "next/link";
 import styles from "./Header.module.css";
+import Acessibility from "./Acessibility";
 
 interface Link {
   href: string;
@@ -21,6 +22,8 @@ const Header = (props: HeaderProps) => {
 
   return (
     <header className={styles.header}>
+      <Acessibility />
+
       <button
         className={styles["menu-button"]}
         onClick={() => setDisplayMobileMenu(true)}

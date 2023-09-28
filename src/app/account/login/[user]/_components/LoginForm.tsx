@@ -88,7 +88,7 @@ const LoginForm = ({ user }: LoginFormProps) => {
         </Button>
       </form>
       <div className={styles["buttons-container"]}>
-        <Link href={"/"} className={styles["back"]}>
+        <Link href={"/"} className={styles["back"]} aria-label="Voltar">
           <BackButton />
         </Link>
         <Link

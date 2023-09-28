@@ -22,13 +22,18 @@ const Select: React.FC<SelectProps> = (props) => {
 
   return (
     <div className={`${disabledClass} ${themeClass}`}>
-      {props.label && <label className={styles.label}>{props.label}</label>}
+      {props.label && (
+        <label htmlFor={props.name} className={styles.label}>
+          {props.label}
+        </label>
+      )}
       <div
         className={`${styles.container} ${focusedClass} ${
           props.className || ""
         }`}
       >
         <select
+          id={props.name}
           className={styles.input}
           name={props.name}
           value={props.value || ""}

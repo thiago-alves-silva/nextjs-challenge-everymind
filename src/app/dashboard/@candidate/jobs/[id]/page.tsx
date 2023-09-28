@@ -17,6 +17,7 @@ import getUserFromTokenOnServerSide from "@/utils/getUserFromTokenOnServerSide";
 import normalizeWorkModel from "@/utils/normalizeWorkModel";
 import normalizeExperienceLevel from "@/utils/normalizeExperienceLevel";
 import styles from "./page.module.css";
+import getCompany from "@/utils/getCompany";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ const CandidateJobPage = async ({ params }: { params: { id: string } }) => {
     getJob(params.id),
     getCandidaturesByJobId(params.id),
   ]);
+  const company = job ? await getCompany(job.id_company) : null;
   const user = getUserFromTokenOnServerSide();
   const alreadyApplied = !!candidatures.find(
     (c) => c.candidate_id === user?.id
@@ -44,8 +46,11 @@ const CandidateJobPage = async ({ params }: { params: { id: string } }) => {
     return (
       <DashboardModal className={styles.modal}>
         <h1 className={styles.title}>{job.title}</h1>
-        <Link href={`/dashboard/company/${"123"}`} className={styles.company}>
-          {"Empresa"}
+        <Link
+          href={`/dashboard/company/${job.id_company}`}
+          className={styles.company}
+        >
+          {company?.name}
         </Link>
         <div className={styles["job-attributes"]}>
           <div className={styles.attribute}>

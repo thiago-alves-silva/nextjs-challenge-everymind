@@ -42,7 +42,9 @@ const FormControls = (props: FormControlsProps) => {
       {step < descriptions.length - 1 ? (
         <ForwardButton onClick={handleForward} />
       ) : (
-        <Button onClick={handleSubmit}>Finalizar</Button>
+        <Button ariaLabel="Finalizar" onClick={handleSubmit}>
+          Finalizar
+        </Button>
       )}
     </div>
   );

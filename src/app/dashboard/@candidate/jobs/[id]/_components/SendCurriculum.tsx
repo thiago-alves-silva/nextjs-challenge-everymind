@@ -28,7 +28,11 @@ const SendCurriculum = (props: SendCurriculumProps) => {
           className={styles["file-input"]}
           onChange={props.onSelectFile}
         />
-        <label htmlFor="curriculum" className={styles["upload-button"]}>
+        <label
+          htmlFor="curriculum"
+          className={styles["upload-button"]}
+          role="link"
+        >
           Carregar currículo
         </label>
         <Button
