@@ -11,6 +11,16 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  images: {
+    remotePatterns: [
+      // {
+      //   protocol: "https",
+      //   hostname: "vlibras.gov.br",
+      //   pathname: "/",
+      //   port: "",
+      // },
+    ],
+  },
   async redirects() {
     return [
       {

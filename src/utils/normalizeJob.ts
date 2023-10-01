@@ -1,4 +1,6 @@
+import { ExperienceLevel } from "@/types/ExperienceLevel";
 import { Job, JobApi } from "@/types/IJob";
+import { WorkModel } from "@/types/WorkModel";
 
 const normalizeJob = (jobApi: JobApi): Job => {
   const job: Job = {
@@ -8,8 +10,8 @@ const normalizeJob = (jobApi: JobApi): Job => {
     state: jobApi.state,
     city: jobApi.city,
     deadline_date: new Date(jobApi.deadline_date),
-    experience_level: jobApi.experience_level,
-    work_model: jobApi.work_model,
+    experience_level: jobApi.experience_level as ExperienceLevel,
+    work_model: jobApi.work_model as WorkModel,
     salary: Number(jobApi.salary),
     description: jobApi.description,
     steps: jobApi.steps,

@@ -18,6 +18,7 @@ import getJob from "@/utils/getJob";
 import normalizeWorkModel from "@/utils/normalizeWorkModel";
 import normalizeExperienceLevel from "@/utils/normalizeExperienceLevel";
 import styles from "./page.module.css";
+import ProcessSteps from "./_components/ProcessSteps";
 
 export async function generateMetadata({
   params,
@@ -76,15 +77,22 @@ const CompanyDashboardJobPage = async ({
             </span>
           </div>
         </div>
-        <span className={styles["section-title"]}>Sobre a vaga</span>
-        <p className={styles.description}>{job.description}</p>
-        <hr className={styles["dividing-line"]} />
+        <div>
+          <span className={styles["section-title"]}>Sobre a vaga</span>
+          <p className={styles.description}>{job.description}</p>
+          <hr className={styles["dividing-line"]} />
+        </div>
+        <div>
+          <span className={styles["section-title"]}>Etapas do processo</span>
+          <ProcessSteps job={job} />
+          <hr className={styles["dividing-line"]} />
+        </div>
         {!!candidatures.length && (
-          <>
+          <div>
             <span className={styles["section-title"]}>Estatítiscas</span>
             <CandidateStatistics jobId={params.id} />
             <hr className={styles["dividing-line"]} />
-          </>
+          </div>
         )}
         <div className={styles["candidature-header"]}>
           <div className={styles.count}>

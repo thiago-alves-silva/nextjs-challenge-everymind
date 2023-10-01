@@ -1,0 +1,14 @@
+.delete-button {
+  all: unset;
+  grid-column: 1/-1;
+  color: var(--b3);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  width: min-content;
+}
+
+.delete-button:hover {
+  text-decoration: underline;
+}

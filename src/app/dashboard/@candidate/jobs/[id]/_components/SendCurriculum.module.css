@@ -17,10 +17,12 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .filename {
   color: var(--c3);
+  text-align: end;
   font-size: 0.75rem;
   white-space: nowrap;
   overflow: hidden;

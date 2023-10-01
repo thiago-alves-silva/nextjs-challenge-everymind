@@ -1,27 +1,97 @@
+import { JobApi } from "@/types/IJob";
 import { StepFormProps } from "@/types/IStepFormProps";
 import { useJobForm } from "@/context/JobFormContext";
+import { useState } from "react";
+import CopyIcon from "../../../../../../../public/copy.svg";
 import BrazilianStatesOptions from "@/components/BrazilianStatesOptions";
 import Checkbox from "@/components/Checkbox";
 import FormControls from "./FormControls";
 import Input from "@/components/Input";
+import JobListModal from "../../../_components/JobListModal";
 import Select from "@/components/Select";
 import Textarea from "@/components/Textarea";
+import displayNotification from "@/utils/displayNotification";
+import validateOnlyString from "@/utils/validateOnlyString";
 import styles from "./StepOne.module.css";
 
 const StepOne = (props: StepFormProps) => {
-  const { formData } = useJobForm();
+  const { formData, setFormData } = useJobForm();
+  const [displayJobListModal, setDisplayJobListModal] = useState(false);
   const minDate = new Date().toJSON().slice(0, 10);
 
+  const onSelectJobToImport = (job: JobApi) => {
+    const timezone = new Date().getTimezoneOffset() * 60 * 1000;
+    const today = new Date().setHours(0, 0, 0, 0) - timezone;
+    const deadline = new Date(job.deadline_date).getTime();
+
+    if (today >= deadline) {
+      job.deadline_date = minDate;
+    } else {
+      job.deadline_date = job.deadline_date.slice(0, 10);
+    }
+
+    // @ts-expect-error
+    delete job._id;
+
+    setFormData(job);
+  };
+
   const validate = (): boolean => {
-    if (
-      !formData.title.trim() ||
-      !formData.state ||
-      !formData.city.trim() ||
-      !formData.deadline_date ||
-      !formData.experience_level ||
-      !formData.work_model ||
-      !formData.description.trim()
-    ) {
+    if (!formData.title.trim()) {
+      displayNotification({
+        text: "Preencha um título",
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!formData.state) {
+      displayNotification({
+        text: "Selecione um estado",
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!formData.deadline_date) {
+      displayNotification({
+        text: "Selecione uma data limite de candidatura",
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!formData.experience_level) {
+      displayNotification({
+        text: "Selecione um nível de experiência",
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!formData.work_model) {
+      displayNotification({
+        text: "Selecione um modelo de trabalho",
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!formData.description.trim()) {
+      displayNotification({
+        text: "Preencha uma descrição",
+        type: "error",
+      });
+      return false;
+    }
+
+    if (!validateOnlyString(formData.city)) {
+      displayNotification({
+        text: !formData.city.trim()
+          ? "Preencha uma cidade"
+          : "Insira uma cidade válida",
+        type: "error",
+      });
       return false;
     }
 
@@ -29,6 +99,10 @@ const StepOne = (props: StepFormProps) => {
       formData.salary !== null &&
       (isNaN(Number(formData.salary)) || Number(formData.salary) <= 0)
     ) {
+      displayNotification({
+        text: "Insira uma valor de salário válido",
+        type: "error",
+      });
       return false;
     }
 
@@ -37,6 +111,16 @@ const StepOne = (props: StepFormProps) => {
 
   return (
     <>
+      <div>
+        <button
+          type="button"
+          className={styles["import-button"]}
+          onClick={() => setDisplayJobListModal(true)}
+        >
+          Importar dados de uma vaga já existente
+          <CopyIcon />
+        </button>
+      </div>
       <Input
         label="Título do cargo"
         name="title"
@@ -128,6 +212,12 @@ const StepOne = (props: StepFormProps) => {
         className={styles.textarea}
       />
       <FormControls validate={validate} />
+      {displayJobListModal && (
+        <JobListModal
+          onChange={onSelectJobToImport}
+          onClose={() => setDisplayJobListModal(false)}
+        />
+      )}
     </>
   );
 };

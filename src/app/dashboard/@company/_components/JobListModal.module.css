@@ -50,3 +50,7 @@
 .button:hover {
   background-color: var(--c6);
 }
+
+.button .icon {
+  transform: rotate(-90deg);
+}

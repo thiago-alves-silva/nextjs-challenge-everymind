@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 
 export const POST = async (req: NextRequest) => {
@@ -8,5 +9,6 @@ export const POST = async (req: NextRequest) => {
     body: JSON.stringify(body),
   });
 
+  revalidatePath("/dashboard/jobs", "layout");
   return response;
 };

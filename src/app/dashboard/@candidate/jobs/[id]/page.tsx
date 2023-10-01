@@ -78,9 +78,7 @@ const CandidateJobPage = async ({ params }: { params: { id: string } }) => {
           <div className={styles.attribute}>
             <StarIcon />
             <span className={styles.label}>
-              {normalizeExperienceLevel(
-                job.experience_level as ExperienceLevel
-              )}
+              {normalizeExperienceLevel(job.experience_level)}
             </span>
           </div>
         </div>

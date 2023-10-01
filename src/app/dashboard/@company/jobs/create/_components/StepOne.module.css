@@ -1,5 +1,28 @@
+.import-button {
+  all: unset;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--p1);
+  text-align: center;
+  cursor: pointer;
+  margin: auto;
+}
+
+.import-button svg {
+  fill: var(--p1);
+  width: 1.25rem;
+}
+
+.import-button:hover {
+  text-decoration: underline;
+}
+
 .double-inputs {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -29,4 +52,10 @@
 .textarea {
   margin-bottom: 2rem;
   height: 10rem;
+}
+
+@media (max-width: 600px) {
+  .double-inputs {
+    flex-direction: column;
+  }
 }

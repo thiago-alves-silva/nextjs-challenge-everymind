@@ -10,14 +10,12 @@ const CompanyDashboardCandidaturePage = async (props: {
   params: { id: string };
 }) => {
   const candidature = await getCandidature(props.params.id);
-  console.log("cand", candidature);
 
   if (candidature) {
     const [candidate, job] = await Promise.all([
       getCandidate(candidature.candidate_id),
       getJob(candidature.job_id),
     ]);
-    console.log(job);
 
     if (candidate && job) {
       return (

@@ -7,7 +7,8 @@ export const GET = async (req: NextRequest) => {
 
   if (companyId) {
     const response = await fetch(
-      new URL(`/vacancy/company/${companyId}`, process.env.API_HOST)
+      new URL(`/vacancy/company/${companyId}`, process.env.API_HOST),
+      { cache: "no-store" }
     );
     return response;
   }

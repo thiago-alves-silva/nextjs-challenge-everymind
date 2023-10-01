@@ -9,6 +9,7 @@ const getCandidateList = async (filters?: CandidateFilter) => {
 
   if (response.ok) {
     const candidates = (await response.json()) as CandidateApi[];
+
     return candidates.map((candidate) => normalizeCandidate(candidate));
   }
 

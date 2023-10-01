@@ -1,14 +1,5 @@
-export interface Step {
-  label: string;
-  online: boolean;
-  step: string | FormStep[];
-}
-
-export interface FormStep {
-  label: string;
-  type: "checkbox" | "radio" | "number" | "text";
-  options?: { label: string; value: string }[];
-}
+import { ExperienceLevel } from "./ExperienceLevel";
+import { WorkModel } from "./WorkModel";
 
 export interface JobApi {
   _id: string;
@@ -33,11 +24,25 @@ export interface Job {
   state: string;
   city: string;
   deadline_date: Date;
-  experience_level: string;
-  work_model: string;
+  experience_level: ExperienceLevel;
+  work_model: WorkModel;
   salary: number | null;
   description: string;
   steps: Step[];
   createdAt: Date;
   active: boolean;
 }
+
+export interface Step {
+  label: string;
+  online: boolean;
+  questions: string | FormStep[];
+}
+
+export interface FormStep {
+  label: string;
+  type: FormStepInputTyoe;
+  options?: { label: string; value: string }[];
+}
+
+export type FormStepInputTyoe = "checkbox" | "radio" | "number" | "text";

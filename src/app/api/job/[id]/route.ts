@@ -6,7 +6,8 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   const response = await fetch(
-    new URL(`/vacancy/${params.id}`, process.env.API_HOST)
+    new URL(`/vacancy/${params.id}`, process.env.API_HOST),
+    { cache: "no-cache" }
   );
 
   return response;

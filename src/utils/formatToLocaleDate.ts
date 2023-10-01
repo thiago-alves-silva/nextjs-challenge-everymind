@@ -1,9 +1,9 @@
 const formatToLocaleDate = (date: Date | string) => {
-  if (typeof date === "string") {
-    date = date.replace("Z", "-03:00");
+  if (typeof date !== "string") {
+    date = date.toJSON();
   }
 
-  return new Date(date).toLocaleDateString();
+  return new Date(date.replace("Z", "-03:00")).toLocaleDateString();
 };
 
 export default formatToLocaleDate;

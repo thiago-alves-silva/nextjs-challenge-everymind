@@ -3,8 +3,8 @@ import { Candidate } from "@/types/ICandidate";
 import DisabilityIcon from "../../../../../public/disability.svg";
 import LgbtIcon from "../../../../../public/lgbt.svg";
 import RacialIcon from "../../../../../public/racial.svg";
-import styles from "./CandidateCard.module.css";
 import Image from "next/image";
+import styles from "./CandidateCard.module.css";
 
 interface CandidateCardProps {
   candidate: Candidate;

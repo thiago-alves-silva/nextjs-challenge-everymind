@@ -5,7 +5,8 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   const response = await fetch(
-    new URL(`/candidacy/curriculum/${params.id}`, process.env.API_HOST)
+    new URL(`/candidacy/curriculum/${params.id}`, process.env.API_HOST),
+    { cache: "no-store" }
   );
 
   return response;

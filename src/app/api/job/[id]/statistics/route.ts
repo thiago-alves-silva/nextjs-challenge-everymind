@@ -5,7 +5,8 @@ export const GET = async (
   { params }: { params: { id: string } }
 ) => {
   const response = await fetch(
-    new URL(`/vacancy/${params.id}/statistics`, process.env.API_HOST)
+    new URL(`/vacancy/${params.id}/statistics`, process.env.API_HOST),
+    { cache: "no-store" }
   );
 
   return response;

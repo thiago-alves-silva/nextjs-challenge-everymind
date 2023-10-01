@@ -1,13 +1,13 @@
 import Modal from "@/components/Modal";
-import styles from "./FeedbackModal.module.css";
 import Button from "@/components/Button";
+import styles from "./ConfirmationModal.module.css";
 
-interface FeedbackModalProps {
+interface ConfirmationModalProps {
   onClose: React.MouseEventHandler;
   onAnswer: () => void;
 }
 
-const FeedbackModal = (props: FeedbackModalProps) => {
+const ConfirmationModal = (props: ConfirmationModalProps) => {
   const handleAnswer =
     (answer: boolean): React.MouseEventHandler =>
     (event) => {
@@ -33,4 +33,4 @@ const FeedbackModal = (props: FeedbackModalProps) => {
   );
 };
 
-export default FeedbackModal;
+export default ConfirmationModal;

@@ -25,6 +25,10 @@
   font-size: 1rem;
 }
 
+:is(.title, .company):hover {
+  text-decoration: underline;
+}
+
 .location {
   color: var(--c5);
   font-size: 0.875rem;
@@ -93,13 +97,16 @@
   gap: 0.75rem;
   color: var(--c5);
   font-size: 0.75rem;
-  cursor: pointer;
+  cursor: default;
   transition: color 0.2s;
   width: max-content;
 }
 
-.step-item:hover {
+.step-item:not(.waiting, .result):hover,
+.step-item a:hover {
   color: var(--c4);
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .step-item.disabled {
@@ -110,7 +117,20 @@
 .step-item.completed {
   color: var(--b3);
   font-weight: 700;
+}
+
+.step-item.completed:not(.result) {
   pointer-events: none;
+}
+
+.step-item.result {
+  color: var(--b3);
+  font-weight: 700;
+}
+
+.step-item.result:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .step-item::before {
@@ -128,10 +148,7 @@
   background-color: var(--b3);
 }
 
-.step-item .feedback {
-  display: block;
-  background-color: var(--b3);
-  color: var(--c7);
-  border-radius: 2px;
-  padding: 0.25rem 0.5rem;
+.step-item a {
+  color: var(--c5);
+  transition: color 0.2s;
 }

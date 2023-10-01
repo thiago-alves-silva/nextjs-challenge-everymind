@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const CompanyDashboardSeekCandidatePage = async () => {
   const candidateList = await getCandidateList();
-  const user = await getUserFromTokenOnServerSide();
+  const user = getUserFromTokenOnServerSide();
 
   return (
     <>

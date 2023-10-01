@@ -1,0 +1,15 @@
+.question-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem 1rem;
+}
+
+.option-list-container {
+  grid-column: 1 / -1;
+  margin-left: 2rem;
+}
+
+.option-list {
+  list-style: none;
+  margin-bottom: 0.25rem;
+}

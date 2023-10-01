@@ -60,8 +60,10 @@ a.data:hover {
 }
 
 .job-title {
+  display: block;
   color: var(--c1);
   font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .job-list {

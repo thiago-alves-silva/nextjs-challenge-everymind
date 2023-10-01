@@ -8,22 +8,25 @@ interface AnswerListProps {
 }
 
 const AnswerList = ({ candidature, steps }: AnswerListProps) => {
-  if (!candidature.answers?.length) {
-    return null;
-  }
+  // if (!candidature.answers?.length) {
+  //   return null;
+  // }
 
   return (
     <>
       <hr />
       <div className={styles.container}>
-        <h2 className={styles.title}>Etapas respondidas</h2>
-        <ul className={styles["answer-list"]}>
+        <h2 className={styles.title}>Etapa do processo</h2>
+        <ol className={styles["answer-list"]}>
+          <li>
+            <span className={styles.label}>1 - Inscrição</span>
+          </li>
           {steps.slice(0, candidature.current_step).map((step, index) => {
             const answer = candidature.answers?.find((a) => a.step === index);
 
             return (
               <li key={index}>
-                <span className={styles.label}>{`${index + 1} - ${
+                <span className={styles.label}>{`${index + 2} - ${
                   step.label
                 }`}</span>
                 <div className={styles["steps-container"]}>
@@ -32,8 +35,8 @@ const AnswerList = ({ candidature, steps }: AnswerListProps) => {
                   ) : (
                     <ul className={styles["form-step-list"]}>
                       {answer?.values.map((value, index) => {
-                        if (Array.isArray(step.step)) {
-                          const formStep = step.step[index];
+                        if (Array.isArray(step.questions)) {
+                          const formStep = step.questions[index];
 
                           if (formStep) {
                             return (
@@ -53,7 +56,7 @@ const AnswerList = ({ candidature, steps }: AnswerListProps) => {
               </li>
             );
           })}
-        </ul>
+        </ol>
       </div>
     </>
   );

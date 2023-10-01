@@ -7,3 +7,9 @@
 .job-invitations {
   margin-bottom: 2rem;
 }
+
+.not-found {
+  color: var(--c3);
+  text-align: center;
+  padding: 2rem 0;
+}

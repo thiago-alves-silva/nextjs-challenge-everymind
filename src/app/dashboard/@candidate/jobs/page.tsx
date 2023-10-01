@@ -4,9 +4,9 @@ import { JOBS_GET } from "@/api";
 import { Metadata } from "next";
 import DashboardModal from "@/components/DashboardModal";
 import JobContent from "./_components/JobContent";
+import getUserFromTokenOnServerSide from "@/utils/getUserFromTokenOnServerSide";
 import normalizeJob from "@/utils/normalizeJob";
 import styles from "./page.module.css";
-import getUserFromTokenOnServerSide from "@/utils/getUserFromTokenOnServerSide";
 
 export const metadata: Metadata = {
   title: "Vagas",
@@ -29,6 +29,8 @@ const CandidateDashboardJobsPage = async () => {
   const jobList = await getJobList();
   const jobInvitations = [];
   const jobRecommendation = jobList;
+
+  console.log(user);
 
   return (
     <>

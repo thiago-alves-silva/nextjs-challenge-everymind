@@ -1,6 +1,6 @@
+import { Step } from "@/types/IJob";
 import { useJobForm } from "@/context/JobFormContext";
 import { useRef, useState } from "react";
-import { Step } from "@/types/IJob";
 import FormControls from "./FormControls";
 import StepFormModal from "./StepFormModal";
 import styles from "./StepTwo.module.css";
@@ -9,10 +9,6 @@ const StepTwo = () => {
   const { formData, setFormData } = useJobForm();
   const [stepIndex, setStepIndex] = useState<number | null>(null);
   const stepList = useRef<HTMLUListElement>(null);
-
-  const validate = (): boolean => {
-    return true;
-  };
 
   const showStep = (index: number) => {
     setStepIndex(index);
@@ -24,13 +20,15 @@ const StepTwo = () => {
       const item: Step = {
         label: "[Sem título]",
         online: true,
-        step: "",
+        questions: "",
       };
 
       steps.push(item);
 
       return { ...formData, steps };
     });
+
+    showStep(formData.steps.length);
   };
 
   return (
@@ -57,8 +55,11 @@ const StepTwo = () => {
             Nova etapa
           </button>
         </li>
+        <li>
+          <span>Devolutiva</span>
+        </li>
       </ul>
-      <FormControls validate={validate} />
+      <FormControls validate={() => true} />
       {stepIndex !== null && (
         <StepFormModal
           stepIndex={stepIndex}

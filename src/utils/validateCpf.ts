@@ -1,4 +1,10 @@
+import { cpfRegex } from "@/regex";
+
 const validateCpf = (cpf: string): boolean => {
+  if (!cpfRegex.test(cpf)) {
+    return false;
+  }
+
   // Remover caracteres não numéricos do CPF
   cpf = cpf.replace(/\D/g, "");
 

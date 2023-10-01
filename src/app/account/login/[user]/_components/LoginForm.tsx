@@ -14,6 +14,7 @@ import Loading from "@/components/Loading";
 import displayNotification from "@/utils/displayNotification";
 import validateEmail from "@/utils/validateEmail";
 import styles from "./LoginForm.module.css";
+import setCookie from "@/utils/setCookie";
 
 interface LoginFormProps {
   user: UserType;
@@ -50,7 +51,7 @@ const LoginForm = ({ user }: LoginFormProps) => {
       if (response.ok) {
         const { token } = await response.json();
 
-        document.cookie = `token=${token};Max-Age=3600;Path=/`;
+        setCookie({ name: "token", value: token, maxAge: 86400, path: "/" });
         router.push("/dashboard");
       } else {
         if (response.status === 400) {

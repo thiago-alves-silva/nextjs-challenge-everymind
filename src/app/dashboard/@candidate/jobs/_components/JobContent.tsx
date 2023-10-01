@@ -16,6 +16,7 @@ interface JobContentProps {
 }
 
 const JobContent = (props: JobContentProps) => {
+  const [jobsBySearch, setJobsBySearch] = useState<Job[]>([]);
   const {
     search,
     setSearch,
@@ -28,13 +29,13 @@ const JobContent = (props: JobContentProps) => {
   const [filterCount, setFilterCount] = useState(0);
 
   useEffect(() => {
-    setJobs(() => {
-      return props.jobRecommendation.filter((job) => {
+    setJobsBySearch(() => {
+      return jobs.filter((job) => {
         const searchText = replaceAccents(search.toLowerCase());
-        return job.title.toLowerCase().includes(searchText);
+        return replaceAccents(job.title.toLowerCase()).includes(searchText);
       });
     });
-  }, [props.jobRecommendation, search, setJobs]);
+  }, [jobs, search]);
 
   useEffect(() => {
     setFilterCount(() => {
@@ -44,12 +45,17 @@ const JobContent = (props: JobContentProps) => {
     });
   }, [filter]);
 
+  useEffect(() => {
+    setJobs(props.jobRecommendation);
+  }, [props.jobRecommendation, setJobs]);
+
   return (
     <>
       <div className={styles.header}>
         <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
         <FilterButton
           count={filterCount}
+          disabled={!jobs.length}
           onClick={() => setShowFilterModal(true)}
         />
       </div>
@@ -59,9 +65,11 @@ const JobContent = (props: JobContentProps) => {
           className={styles["job-invitations"]}
         />
       ) : null}
-      {props.jobRecommendation.length ? (
-        <JobRecommendation jobs={jobs} />
-      ) : null}
+      {jobsBySearch.length ? (
+        <JobRecommendation jobs={jobsBySearch} />
+      ) : (
+        <h2 className={styles["not-found"]}>Nenhuma vaga encontrada!</h2>
+      )}
       {showFilterModal && (
         <CandidateJobFilterModal onClose={() => setShowFilterModal(false)} />
       )}

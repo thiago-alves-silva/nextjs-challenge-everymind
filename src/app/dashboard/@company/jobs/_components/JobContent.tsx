@@ -1,28 +1,19 @@
-"use client";
 import { Job } from "@/types/IJob";
-import { useRouter } from "next/navigation";
-import Button from "@/components/Button";
 import JobCard from "./JobCard";
 import Link from "next/link";
 import styles from "./JobContent.module.css";
+import CreateJobButton from "./CreateJobButton";
 
 interface JobContentProps {
   jobs: Job[];
 }
 
 const JobContent = (props: JobContentProps) => {
-  const router = useRouter();
-
   return (
     <>
       <div className={styles.header}>
         <h2 className={styles.title}>Vagas da Empresa</h2>
-        <Button
-          className={styles["create-button"]}
-          onClick={() => router.push("/dashboard/jobs/create")}
-        >
-          Nova vaga
-        </Button>
+        <CreateJobButton />
       </div>
       {!props.jobs.length && (
         <h2 className={styles["not-found"]}>Nenhuma vaga encontrada!</h2>

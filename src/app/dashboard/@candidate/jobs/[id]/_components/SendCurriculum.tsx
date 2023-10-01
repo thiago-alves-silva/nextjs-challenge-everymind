@@ -18,9 +18,6 @@ const SendCurriculum = (props: SendCurriculumProps) => {
         que possamos enviar para a empresa recrutadora.
       </p>
       <div className={styles["actions-container"]}>
-        <span className={styles.filename} title={props.file?.name}>
-          {props.file?.name}
-        </span>
         <input
           type="file"
           accept=".pdf"
@@ -42,6 +39,9 @@ const SendCurriculum = (props: SendCurriculumProps) => {
           {props.loading ? <Loading /> : "Enviar"}
         </Button>
       </div>
+      <p className={styles.filename} title={props.file?.name}>
+        {props.file?.name}
+      </p>
     </div>
   );
 };

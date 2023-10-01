@@ -44,6 +44,7 @@ const CandidateContent = (props: CandidateContentProps) => {
       <div className={styles.header}>
         <FilterButton
           count={filterCount}
+          disabled={!candidates.length}
           onClick={() => setShowFilterModal(true)}
         />
       </div>

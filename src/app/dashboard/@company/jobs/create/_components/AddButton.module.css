@@ -1,0 +1,13 @@
+.add-button {
+  all: unset;
+  grid-column: 1/-1;
+  color: var(--b3);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  cursor: pointer;
+  width: min-content;
+}
+
+.add-button:hover {
+  text-decoration: underline;
+}

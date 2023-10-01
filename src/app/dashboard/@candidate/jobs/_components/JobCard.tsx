@@ -1,12 +1,12 @@
+import { Company } from "@/types/ICompany";
 import { Job } from "@/types/IJob";
-import { WorkModel } from "@/types/WorkModel";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import elapsedTime from "@/utils/elapsedTime";
+import getCompany from "@/utils/getCompany";
+import normalizeExperienceLevel from "@/utils/normalizeExperienceLevel";
 import normalizeWorkModel from "@/utils/normalizeWorkModel";
 import styles from "./JobCard.module.css";
-import getCompany from "@/utils/getCompany";
-import { useEffect, useState } from "react";
-import { Company } from "@/types/ICompany";
 
 interface JobCardProps {
   job: Job;
@@ -16,7 +16,7 @@ interface JobCardProps {
 const JobCard = ({ job, ...props }: JobCardProps) => {
   const [company, setCompany] = useState<Company | null>(null);
   const location = `${job.city}, ${job.state} (${normalizeWorkModel(
-    job.work_model as WorkModel
+    job.work_model
   )})`;
 
   useEffect(() => {
@@ -39,7 +39,9 @@ const JobCard = ({ job, ...props }: JobCardProps) => {
           height={40}
         />
       </div>
-      <span className={styles.title}>{job.title}</span>
+      <span className={styles.title}>
+        {job.title} - {normalizeExperienceLevel(job.experience_level)}
+      </span>
       <span className={styles.company}>{company?.name}</span>
       <span className={styles.location}>{location}</span>
       {props.elapsedTime && (

@@ -1,12 +1,15 @@
-import { useJobForm } from "@/context/JobFormContext";
-import { Step } from "@/types/IJob";
-import Input from "@/components/Input";
-import RadioButton from "@/components/RadioButton";
-import styles from "./StepFormModal.module.css";
+import { FormStepInputTyoe, Step } from "@/types/IJob";
 import { useEffect, useState } from "react";
-import Select from "@/components/Select";
+import { useJobForm } from "@/context/JobFormContext";
+import AddButton from "./AddButton";
 import Button from "@/components/Button";
+import DeleteButton from "./DeleteButton";
+import Input from "@/components/Input";
 import Modal from "@/components/Modal";
+import RadioButton from "@/components/RadioButton";
+import QuestionItem from "./QuestionItem";
+import replaceAccents from "@/utils/replaceAccents";
+import styles from "./StepFormModal.module.css";
 
 interface StepFormModalProps {
   stepIndex: number;
@@ -30,27 +33,53 @@ const StepFormModal = (props: StepFormModalProps) => {
         step.label = target.value;
       }
 
-      if (name === "step" && step.online) {
-        step.step = target.value;
+      if (name === "questions" && step.online) {
+        step.questions = target.value;
       }
 
-      if (name.startsWith("question") || name.startsWith("answer-type")) {
-        const [, type, _index] = name.match(/(.+)-(\d)/) ?? [];
+      if (
+        name.startsWith("question") ||
+        name.startsWith("answer-type") ||
+        name.startsWith("option")
+      ) {
+        const [, type, _index] = name.match(/(.+)-(.+)/) ?? [];
         const index = Number(_index);
 
-        if (Array.isArray(step.step) && type && !isNaN(index)) {
+        if (Array.isArray(step.questions) && !isNaN(index)) {
           if (type === "question") {
-            step.step[index].label = target.value;
-          } else if (type === "answer-type") {
-            const { value } = target;
+            step.questions[index].label = target.value;
+          }
 
-            if (
-              value === "number" ||
-              value === "checkbox" ||
-              value === "radio" ||
-              value === "text"
-            ) {
-              step.step[index].type = value;
+          if (type === "answer-type") {
+            const value = target.value as FormStepInputTyoe;
+
+            if (value === "checkbox" || value === "radio") {
+              if (!step.questions[index].options?.length) {
+                step.questions[index].options = [
+                  { label: "Opção 1", value: "opcao_1" },
+                ];
+              }
+            } else {
+              step.questions[index].options = undefined;
+            }
+
+            step.questions[index].type = value;
+          }
+
+          if (name.startsWith("option")) {
+            const [stepIndex, stepOptionIndex] = _index
+              .toString()
+              .split(".")
+              .map(Number);
+            const options = step.questions[stepIndex].options;
+
+            if (Array.isArray(options)) {
+              const value = replaceAccents(
+                target.value.replace(/\s/g, "_").toLowerCase()
+              );
+
+              options[stepOptionIndex].label = target.value;
+              options[stepOptionIndex].value = value;
             }
           }
         }
@@ -65,21 +94,8 @@ const StepFormModal = (props: StepFormModalProps) => {
       const steps = JSON.parse(JSON.stringify(formData.steps)) as Step[];
       const step = steps[props.stepIndex];
 
-      if (!step.online && Array.isArray(step.step)) {
-        step.step.push({ label: "", type: "text" });
-      }
-
-      return { ...formData, steps };
-    });
-  };
-
-  const deleteQuestion = (index: number) => {
-    setFormData((formData) => {
-      const steps = JSON.parse(JSON.stringify(formData.steps)) as Step[];
-      const step = steps[props.stepIndex];
-
-      if (!step.online && Array.isArray(step.step)) {
-        step.step.splice(index, 1);
+      if (!step.online && Array.isArray(step.questions)) {
+        step.questions.push({ label: "", type: "text" });
       }
 
       return { ...formData, steps };
@@ -100,14 +116,14 @@ const StepFormModal = (props: StepFormModalProps) => {
   useEffect(() => {
     setFormData((formData) => {
       const step = formData.steps[props.stepIndex];
-      const isString = typeof step.step === "string";
+      const isString = typeof step.questions === "string";
       step.online = isOnline;
 
       if (isOnline) {
-        step.step = isString ? step.step : "";
+        step.questions = isString ? step.questions : "";
       } else {
-        if (isString || !step.step.length) {
-          step.step = [{ label: "", type: "text" }];
+        if (isString || !step.questions.length) {
+          step.questions = [{ label: "", type: "text" }];
         }
       }
 
@@ -116,94 +132,59 @@ const StepFormModal = (props: StepFormModalProps) => {
   }, [isOnline, props.stepIndex, setFormData]);
 
   return (
-    <Modal onClose={props.onClose}>
-      <div className={styles.container}>
+    <Modal onClose={props.onClose} className={styles.container}>
+      <Input
+        label="Nome da etapa"
+        name="label"
+        value={step.label}
+        onChange={handleOnChange}
+        theme="light"
+      />
+      <div className={styles["online-step"]}>
+        <span className={styles.label}>Etapa online?</span>
+        <RadioButton
+          label="Sim"
+          name="online"
+          checked={isOnline}
+          onChange={() => setIsOnline(true)}
+          theme="light"
+        />
+        <RadioButton
+          label="Não"
+          name="online"
+          checked={!isOnline}
+          onChange={() => setIsOnline(false)}
+          theme="light"
+        />
+      </div>
+      {isOnline && typeof step.questions === "string" && (
         <Input
-          label="Nome da etapa"
-          name="label"
-          value={step.label}
+          label="Endereço da etapa"
+          name="step"
+          value={step.questions}
           onChange={handleOnChange}
           theme="light"
         />
-        <div className={styles["online-step"]}>
-          <span className={styles.label}>Etapa online?</span>
-          <RadioButton
-            label="Sim"
-            name="online"
-            checked={isOnline}
-            onChange={() => setIsOnline(true)}
-            theme="light"
-          />
-          <RadioButton
-            label="Não"
-            name="online"
-            checked={!isOnline}
-            onChange={() => setIsOnline(false)}
-            theme="light"
-          />
-        </div>
-        {isOnline && typeof step.step === "string" && (
-          <Input
-            label="Endereço da etapa"
-            name="step"
-            value={step.step}
-            onChange={handleOnChange}
-            theme="light"
-          />
-        )}
-        {!isOnline && Array.isArray(step.step) && (
-          <>
-            <ul className={styles["question-list"]}>
-              {step.step.map((step, index) => (
-                <li key={index} className={styles["question-item"]}>
-                  <Input
-                    label={`Pergunta ${index + 1}`}
-                    name={`question-${index}`}
-                    value={step.label}
-                    onChange={handleOnChange}
-                    theme="light"
-                  />
-                  <Select
-                    label="Tipo de resposta"
-                    name={`answer-type-${index}`}
-                    value={step.type}
-                    onChange={handleOnChange}
-                    theme="light"
-                  >
-                    <option value="text">Texto</option>
-                    <option value="number">Número</option>
-                    <option value="radio">Seleção única</option>
-                    <option value="checkbox">Seleção múltipla</option>
-                  </Select>
-                  <button
-                    type="button"
-                    className={styles["delete-question-button"]}
-                    onClick={() => deleteQuestion(index)}
-                  >
-                    Remover
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <button
-              type="button"
-              className={styles["add-question-button"]}
-              onClick={addQuestion}
-            >
-              Adicionar pergunta
-            </button>
-          </>
-        )}
-        <div className={styles.footer}>
-          <button
-            type="button"
-            className={styles["add-question-button"]}
-            onClick={deleteStep}
-          >
-            Remover etapa
-          </button>
-          <Button onClick={props.onClose}>Concluir</Button>
-        </div>
+      )}
+      {!isOnline && Array.isArray(step.questions) && (
+        <>
+          <ul className={styles["question-list"]}>
+            {step.questions.map((question, questionIndex) => (
+              <QuestionItem
+                key={questionIndex}
+                question={question}
+                onChange={handleOnChange}
+                questionIndex={questionIndex}
+                stepIndex={props.stepIndex}
+              />
+            ))}
+          </ul>
+          <AddButton onClick={addQuestion}>Adicionar pergunta</AddButton>
+        </>
+      )}
+      <div className={styles.footer}>
+        <DeleteButton onClick={deleteStep}>Remover etapa</DeleteButton>
+        <Button onClick={props.onClose}>Concluir</Button>
       </div>
     </Modal>
   );

@@ -11,7 +11,7 @@ interface JobRecommendationProps {
 const JobRecommendation = (props: JobRecommendationProps) => {
   return props.jobs.length ? (
     <div className={`${props.className || ""}`}>
-      <p className={styles.title}>Vagas relevantes ao seu perfil</p>
+      <p className={styles.title}>Vagas disponíveis</p>
       <ul className={styles["job-list"]}>
         {props.jobs.map((job, index) => (
           <li key={`${job.id}-${index}`}>

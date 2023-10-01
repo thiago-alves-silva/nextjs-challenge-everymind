@@ -18,6 +18,7 @@ import validateCep from "@/utils/validateCep";
 import getAddressByCep from "@/utils/getAddressByCep";
 import displayNotification from "@/utils/displayNotification";
 import styles from "./CompanyForm.module.css";
+import setCookie from "@/utils/setCookie";
 
 const CompanyForm = () => {
   const minPasswordLength = 8;
@@ -56,7 +57,7 @@ const CompanyForm = () => {
       if (response.ok) {
         const { token } = await response.json();
 
-        document.cookie = `token=${token};Max-Age=3600;Path=/`;
+        setCookie({ name: "token", value: token, maxAge: 86400, path: "/" });
         displayNotification({
           text: "Cadastro realizado com sucesso",
           type: "success",

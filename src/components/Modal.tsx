@@ -23,7 +23,12 @@ const Modal = (props: ModalProps) => {
       ref={outsideAreaRef}
     >
       <div className={`${props.className || ""} ${styles.modal}`}>
-        <button className={styles["close-button"]} onClick={props.onClose}>
+        <button
+          aria-label="Fechar"
+          title="Fechar"
+          className={styles["close-button"]}
+          onClick={props.onClose}
+        >
           <CloseIcon />
         </button>
         {props.children}

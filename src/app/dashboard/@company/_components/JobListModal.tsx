@@ -1,28 +1,23 @@
 import { JobApi } from "@/types/IJob";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import ArrowIcon from "../../../../../../../public/arrow_right.svg";
+import ArrowIcon from "../../../../../public/arrow_filled_down.svg";
 import Modal from "@/components/Modal";
+import Loading from "@/components/Loading";
 import getJobListByCompany from "@/utils/getJobListByCompany";
 import getUserFromTokenOnClientSide from "@/utils/getUserFromTokenOnClientSide";
 import styles from "./JobListModal.module.css";
 
 interface JobListModalProps {
+  onChange: (job: JobApi) => void;
   onClose: () => void;
 }
 
 const JobListModal = (props: JobListModalProps) => {
   const [loading, setLoading] = useState(false);
   const [jobList, setJobList] = useState<JobApi[]>([]);
-  const params = useParams();
 
-  const sendJobInvitation = (jobId: string) => {
-    const candidateId = params.id;
-
-    console.log(
-      `Enviar convite da vaga ${jobId} para o candidato ${candidateId}`
-    );
-
+  const selectJob = (job: JobApi) => {
+    props.onChange(job);
     props.onClose();
   };
 
@@ -30,7 +25,7 @@ const JobListModal = (props: JobListModalProps) => {
     (async () => {
       setLoading(true);
       const user = getUserFromTokenOnClientSide();
-      const list = user ? await getJobListByCompany(user?.id) : [];
+      const list = user ? await getJobListByCompany(user.id) : [];
 
       if (list) {
         setJobList(list);
@@ -42,11 +37,8 @@ const JobListModal = (props: JobListModalProps) => {
 
   return (
     <Modal onClose={props.onClose}>
-      {loading && <span>Carregando...</span>}
-      {!loading && !jobList.length && (
-        <h2 className={styles["not-found"]}>Nenhuma vaga encontrada!</h2>
-      )}
-      {!loading && !!jobList.length && (
+      {loading && <Loading />}
+      {!loading && !!jobList.length ? (
         <ul className={styles["job-list"]}>
           {jobList.map((job) => (
             <li key={job._id} className={styles.item}>
@@ -57,15 +49,14 @@ const JobListModal = (props: JobListModalProps) => {
               <span
                 className={styles.location}
               >{`${job.city} - ${job.state}`}</span>
-              <button
-                className={styles.button}
-                onClick={() => sendJobInvitation(job._id)}
-              >
-                <ArrowIcon />
+              <button className={styles.button} onClick={() => selectJob(job)}>
+                <ArrowIcon className={styles.icon} />
               </button>
             </li>
           ))}
         </ul>
+      ) : (
+        <h2 className={styles["not-found"]}>Nenhuma vaga encontrada!</h2>
       )}
     </Modal>
   );

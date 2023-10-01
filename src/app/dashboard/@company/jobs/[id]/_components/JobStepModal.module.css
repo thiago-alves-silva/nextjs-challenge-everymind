@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.label {
+  display: block;
+  grid-column: 1/-1;
+  color: var(--c3);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.value {
+  color: var(--c3);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.online-step {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+}

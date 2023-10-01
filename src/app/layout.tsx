@@ -1,7 +1,8 @@
-import { Lato } from "next/font/google";
-import { Metadata } from "next";
 import "./globals.css";
 import "./notification.css";
+import { Lato } from "next/font/google";
+import { Metadata } from "next";
+import VLibras from "./_components/VLibras";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -23,7 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={lato.className}>{children}</body>
+      <body className={lato.className}>
+        {children}
+        <VLibras forceOnload />
+      </body>
     </html>
   );
 }

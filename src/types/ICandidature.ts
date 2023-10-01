@@ -14,6 +14,10 @@ export interface Candidature {
   curriculum: string;
   answers?: StepAnswer[];
   feedback?: string;
+  result?: {
+    approved: boolean;
+    return: string;
+  };
 }
 
 export interface CandidatureWithJobAndCompany extends Candidature {

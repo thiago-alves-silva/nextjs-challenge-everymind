@@ -1,3 +1,18 @@
+.section-title {
+  display: block;
+  color: var(--c0);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.dividing-line {
+  background-color: var(--c6);
+  border: none;
+  margin-bottom: 2rem;
+  height: 1px;
+}
+
 .dashboard-modal {
   padding: 6rem 4rem;
 }
@@ -32,24 +47,10 @@
   font-size: 1rem;
 }
 
-.section-title {
-  color: var(--c0);
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
 .description {
   color: var(--c3);
   font-size: 1rem;
   margin-bottom: 2rem;
-}
-
-.dividing-line {
-  background-color: var(--c6);
-  border: none;
-  margin-bottom: 2rem;
-  height: 1px;
 }
 
 .candidature-header {
@@ -71,6 +72,7 @@
 
 .candidature-header .count .value svg {
   fill: var(--c3);
+  width: 1.5rem;
 }
 
 .footer {

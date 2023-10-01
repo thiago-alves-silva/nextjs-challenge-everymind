@@ -10,6 +10,12 @@
 .title {
   color: var(--c1);
   font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.location {
+  color: var(--c5);
+  font-size: 0.875rem;
   margin-bottom: 0.5rem;
 }
 
@@ -27,6 +33,7 @@
 }
 
 .attribute-list .icon {
+  fill: var(--c3);
   width: 1rem;
 }
 

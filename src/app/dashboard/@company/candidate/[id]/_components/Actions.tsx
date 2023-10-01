@@ -1,11 +1,21 @@
 "use client";
-import Button from "@/components/Button";
-import styles from "./Actions.module.css";
+import { JobApi } from "@/types/IJob";
+import { useParams } from "next/navigation";
 import { useState } from "react";
-import JobListModal from "./JobListModal";
+import Button from "@/components/Button";
+import JobListModal from "../../../_components/JobListModal";
+import styles from "./Actions.module.css";
 
 const Actions = () => {
   const [displayJobListModal, setDisplayJobListModal] = useState(false);
+  const params = useParams();
+
+  const sendJobInvitation = (job: JobApi) => {
+    const candidateId = params.id;
+    console.log(
+      `Enviar convite da vaga ${job._id} para o candidato ${candidateId}`
+    );
+  };
 
   return (
     <>
@@ -15,7 +25,10 @@ const Actions = () => {
         </Button>
       </div>
       {displayJobListModal && (
-        <JobListModal onClose={() => setDisplayJobListModal(false)} />
+        <JobListModal
+          onChange={sendJobInvitation}
+          onClose={() => setDisplayJobListModal(false)}
+        />
       )}
     </>
   );

@@ -15,20 +15,23 @@ import validateCpf from "@/utils/validateCpf";
 import validatePhone from "@/utils/validatePhone";
 import validateEmail from "@/utils/validateEmail";
 import displayNotification from "@/utils/displayNotification";
+import validateOnlyString from "@/utils/validateOnlyString";
 
 const StepOne = (props: StepFormProps) => {
   const { formData } = useCandidateForm();
 
   const validate = (): boolean => {
-    if (!formData.name.trim()) {
+    if (!validateOnlyString(formData.name)) {
       displayNotification({
-        text: "Preencha o nome",
+        text: !formData.name.trim()
+          ? "Preencha o nome"
+          : "Insira um nome válido",
         type: "error",
       });
       return false;
     }
 
-    if (!cpfRegex.test(formData.cpf) || !validateCpf(formData.cpf)) {
+    if (!validateCpf(formData.cpf)) {
       displayNotification({
         text: !formData.cpf.trim() ? "Preencha o CPF" : "Insira um CPF válido",
         type: "error",
